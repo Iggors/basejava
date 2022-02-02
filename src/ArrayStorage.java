@@ -17,8 +17,17 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        storage[nElems] = r;
-        nElems++;
+        int i;
+        for (i = 0; i < nElems; i++)
+            if (storage[i].toString().equals(r.toString())) {
+                System.out.println("The resume with unique identifier " + r.uuid + " already exists.");
+                break;
+            }
+        if (i == nElems){
+            storage[nElems] = r;
+            nElems++;
+            System.out.println("The resume with unique identifier " + r.uuid + "was succesfully saved.");
+        }
     }
 
     Resume get(String uuid) {
