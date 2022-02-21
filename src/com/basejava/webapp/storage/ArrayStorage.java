@@ -1,6 +1,7 @@
 package com.basejava.webapp.storage;
 
 import com.basejava.webapp.model.Resume;
+
 import java.util.Arrays;
 
 /**
@@ -62,7 +63,7 @@ public class ArrayStorage {
     public void delete(String uuid) {
         int i;
         for (i = 0; i < size; i++) {
- //           if (uuid == storage[i].toString()) {
+            //           if (uuid == storage[i].toString()) {
             if (storage[i].toString().equals(uuid)) {
                 break;
             }
