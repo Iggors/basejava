@@ -14,8 +14,13 @@ public class ArrayStorage {
     private int size = 0;
 
     public void clear() {
-        Arrays.fill(storage, null);
-        size = 0;
+        if (size != 0) {
+            Arrays.fill(storage, 0, size, null);
+            size = 0;
+            System.out.println("The storage was successfully cleared.");
+        } else {
+            System.out.println("The storage is empty.");
+        }
     }
 
     private int find(String id) {
