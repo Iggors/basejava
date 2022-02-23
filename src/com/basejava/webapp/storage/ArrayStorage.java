@@ -8,7 +8,7 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[3];
 
     // size - The counter of not null elements in the storage[]
     private static int size = 0;
@@ -39,10 +39,10 @@ public class ArrayStorage {
         int index = findIndex(r.getUuid());
         String uuid = r.getUuid();
 
-        if (size >= storage.length) {
-            System.out.println("The storage is full.");
-        } else if (index != -1) {
+        if (index != -1) {
             System.out.println("The resume with unique identifier " + uuid + " already exists.");
+        } else if (size >= storage.length) {
+            System.out.println("The storage overflow.");
         } else {
             storage[size] = r;
             size++;
