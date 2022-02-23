@@ -23,57 +23,50 @@ public class ArrayStorage {
         }
     }
 
-    private int find(String id) {
-        int i;
-
-        for (i = 0; i < size; i++) {
-            if (storage[i].toString().equals(id)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     public void update(Resume r) {
-        int findIndex = find(r.getUuid());
+        int index = findIndex(r.getUuid());
+        String uuid = r.getUuid();
 
-        if (findIndex != -1) {
-            System.out.println("The resume with unique identifier " + r.getUuid() + " was successfully updated.");
+        if (index != -1) {
+            storage[index] = r;
+            System.out.println("The resume with unique identifier " + uuid + " was successfully updated.");
         } else {
-            System.out.println("The resume with unique identifier " + r.getUuid() + " was not found.");
+            System.out.println("The resume with unique identifier " + uuid + " not found.");
         }
     }
 
     public void save(Resume r) {
-        int uuidIndex = find(r.getUuid());
+        int index = findIndex(r.getUuid());
+        String uuid = r.getUuid();
 
         if (size >= storage.length) {
             System.out.println("The storage is full.");
-        } else if (uuidIndex != -1) {
-            System.out.println("The resume with unique identifier " + r.getUuid() + " already exists.");
+        } else if (index != -1) {
+            System.out.println("The resume with unique identifier " + uuid + " already exists.");
         } else {
             storage[size] = r;
             size++;
-            System.out.println("The resume with unique identifier " + r.getUuid() + " was successfully saved.");
+            System.out.println("The resume with unique identifier " + uuid + " was successfully saved.");
         }
     }
 
     public Resume get(String uuid) {
-        int uuidIndex = find(uuid);
+        int index = findIndex(uuid);
 
-        if (uuidIndex != -1) {
-            return storage[uuidIndex];
+        if (index != -1) {
+            return storage[index];
         } else {
+            System.out.println("The resume with unique identifier " + uuid + " not found.");
             return null;
         }
     }
 
     public void delete(String uuid) {
-        int uuidIndex = find(uuid);
+        int index = findIndex(uuid);
 
-        if (uuidIndex != -1) {
-            for (int k = uuidIndex; k < size - 1; k++) {
-                storage[k] = storage[k + 1];
+        if (index != -1) {
+            if (size - 1 - index >= 0) {
+                System.arraycopy(storage, index + 1, storage, index, size - 1 - index);
             }
             size--;
             System.out.println("The resume with unique identifier " + uuid + " was successfully deleted.");
@@ -96,5 +89,14 @@ public class ArrayStorage {
 
     public int size() {
         return size;
+    }
+
+    private int findIndex(String id) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].toString().equals(id)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

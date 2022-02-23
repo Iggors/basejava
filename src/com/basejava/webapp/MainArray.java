@@ -45,7 +45,7 @@ public class MainArray {
                     ARRAY_STORAGE.delete(uuid);
                     printAll();
                     break;
-                case "get":
+                 case "get":
                     System.out.println(ARRAY_STORAGE.get(uuid));
                     break;
                  case "clear":
