@@ -11,7 +11,7 @@ public class ArrayStorage {
     private Resume[] storage = new Resume[10000];
 
     // size - The counter of not null elements in the storage[]
-    private int size = 0;
+    private static int size = 0;
 
     public void clear() {
         if (size != 0) {
@@ -55,10 +55,9 @@ public class ArrayStorage {
 
         if (index != -1) {
             return storage[index];
-        } else {
-            System.out.println("The resume with unique identifier " + uuid + " not found.");
-            return null;
         }
+        System.out.println("The resume with unique identifier " + uuid + " not found.");
+        return null;
     }
 
     public void delete(String uuid) {
