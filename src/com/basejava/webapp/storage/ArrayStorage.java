@@ -7,13 +7,7 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage implements Storage {
-    private static final int STORAGE_LIMIT = 10000;
-
-    private Resume[] storage = new Resume[STORAGE_LIMIT];
-
-    // size - The counter of not null elements in the storage[]
-    private static int size = 0;
+public class ArrayStorage extends AbstractArrayStorage {
 
     public void clear() {
         if (size != 0) {
@@ -26,7 +20,7 @@ public class ArrayStorage implements Storage {
     }
 
     public void update(Resume r) {
-        int index = findIndex(r.getUuid());
+        int index = getIndex(r.getUuid());
         String uuid = r.getUuid();
 
         if (index != -1) {
@@ -38,12 +32,12 @@ public class ArrayStorage implements Storage {
     }
 
     public void save(Resume r) {
-        int index = findIndex(r.getUuid());
+        int index = getIndex(r.getUuid());
         String uuid = r.getUuid();
 
         if (index != -1) {
             System.out.println("The resume with unique identifier " + uuid + " already exists.");
-        } else if (size >= storage.length) {
+        } else if (size >= STORAGE_LIMIT) {
             System.out.println("The storage overflow.");
         } else {
             storage[size] = r;
@@ -52,18 +46,8 @@ public class ArrayStorage implements Storage {
         }
     }
 
-    public Resume get(String uuid) {
-        int index = findIndex(uuid);
-
-        if (index != -1) {
-            return storage[index];
-        }
-        System.out.println("The resume with unique identifier " + uuid + " not found.");
-        return null;
-    }
-
-    public void delete(String uuid) {
-        int index = findIndex(uuid);
+     public void delete(String uuid) {
+        int index = getIndex(uuid);
 
         if (index != -1) {
             if (size - 1 - index >= 0) {
@@ -88,13 +72,9 @@ public class ArrayStorage implements Storage {
         } else return new Resume[0];
     }
 
-    public int size() {
-        return size;
-    }
-
-    private int findIndex(String id) {
+    protected int getIndex(String id) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].toString().equals(id)) {
+            if (id.equals(storage[i].getUuid())) {
                 return i;
             }
         }
