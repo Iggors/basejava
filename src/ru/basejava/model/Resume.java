@@ -1,4 +1,4 @@
-package com.basejava.webapp.model;
+package ru.basejava.model;
 
 /**
  * Initial resume class

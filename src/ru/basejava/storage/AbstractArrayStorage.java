@@ -1,17 +1,17 @@
-package com.basejava.webapp.storage;
+package ru.basejava.storage;
 
-import com.basejava.webapp.model.Resume;
+import ru.basejava.model.Resume;
 
 /**
  * Array based storage for Resumes
  */
 public abstract class AbstractArrayStorage implements Storage {
-    protected final int STORAGE_LIMIT = 10000;
+    protected static final int STORAGE_LIMIT = 10000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
 
     // size - The counter of not null elements in the storage[]
-    protected static int size = 0;
+    protected int size = 0;
 
     public int size() {
         return size;

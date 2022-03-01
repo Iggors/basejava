@@ -1,6 +1,6 @@
-package com.basejava.webapp.storage;
+package ru.basejava.storage;
 
-import com.basejava.webapp.model.Resume;
+import ru.basejava.model.Resume;
 
 import java.util.Arrays;
 
