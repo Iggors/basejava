@@ -8,19 +8,19 @@ import ru.basejava.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    protected void addElement(Resume r, int index) {
+    protected void addResume(Resume r, int index) {
         storage[size] = r;
     }
 
     @Override
-    protected void deleteElement(int index) {
+    protected void deleteResume(int index) {
         storage[index] = storage[size - 1];
     }
 
     @Override
-    protected int getIndex(String id) {
+    protected int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (id.equals(storage[i].getUuid())) {
+            if (uuid.equals(storage[i].getUuid())) {
                 return i;
             }
         }

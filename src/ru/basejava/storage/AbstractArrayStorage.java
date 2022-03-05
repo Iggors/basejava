@@ -10,7 +10,7 @@ import static java.util.Arrays.copyOfRange;
  * Array based storage for Resumes
  */
 public abstract class AbstractArrayStorage implements Storage {
-    protected static final int STORAGE_LIMIT = 10000;
+    private final int STORAGE_LIMIT = 10000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
 
@@ -19,9 +19,9 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract int getIndex(String uuid);
 
-    protected abstract void addElement(Resume r, int index);
+    protected abstract void addResume(Resume r, int index);
 
-    protected abstract void deleteElement(int index);
+    protected abstract void deleteResume(int index);
 
     public int size() {
         return size;
@@ -40,7 +40,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public Resume get(String uuid) {
         int index = getIndex(uuid);
 
-        if (index > 0) {
+        if (index >= 0) {
             return storage[index];
         }
         System.out.println("The resume with unique identifier " + uuid + " not found.");
@@ -51,7 +51,7 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(r.getUuid());
         String uuid = r.getUuid();
 
-        if (index > 0) {
+        if (index >= 0) {
             storage[index] = r;
             System.out.println("The resume with unique identifier " + uuid + " was successfully updated.");
         } else {
@@ -63,12 +63,12 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(r.getUuid());
         String uuid = r.getUuid();
 
-        if (index > 0) {
+        if (index >= 0) {
             System.out.println("The resume with unique identifier " + uuid + " already exists.");
         } else if (size >= STORAGE_LIMIT) {
             System.out.println("The storage overflow.");
         } else {
-            addElement(r, index);
+            addResume(r, index);
             size++;
             System.out.println("The resume with unique identifier " + uuid + " was successfully saved.");
         }
@@ -80,7 +80,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index < 0) {
             System.out.println("The resume with unique identifier " + uuid + " doesn't exist.");
         } else {
-            deleteElement(index);
+            deleteResume(index);
             storage[size - 1] = null;
             size--;
             System.out.println("The resume with unique identifier " + uuid + " was successfully deleted.");
