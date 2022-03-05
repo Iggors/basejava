@@ -91,8 +91,6 @@ public abstract class AbstractArrayStorage implements Storage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        if (size > 0) {
-            return copyOfRange(storage, 0, size);
-        } else return new Resume[0];
+        return copyOfRange(storage, 0, size);
     }
 }
