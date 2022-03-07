@@ -4,7 +4,7 @@ import ru.basejava.model.Resume;
 import ru.basejava.storage.ArrayStorage;
 
 /**
- * Test for your com.basejava.storage.ArrayStorage implementation
+ * Test for your ru.basejava.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();

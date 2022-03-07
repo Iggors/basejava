@@ -10,12 +10,12 @@ import static java.util.Arrays.copyOfRange;
  * Array based storage for Resumes
  */
 public abstract class AbstractArrayStorage implements Storage {
-    private final int STORAGE_LIMIT = 10000;
+    private final static int STORAGE_LIMIT = 10000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
 
     // size - The counter of not null elements in the storage[]
-    protected int size = 0;
+    protected static int size = 0;
 
     protected abstract int getIndex(String uuid);
 
