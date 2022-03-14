@@ -26,7 +26,7 @@ public class MainReflection {
             method.setAccessible(true);
             System.out.println(method.invoke(object));
             method.setAccessible(false);
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e){
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e){
             e.printStackTrace();
         }
 
