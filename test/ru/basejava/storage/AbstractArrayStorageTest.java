@@ -106,11 +106,12 @@ public abstract class AbstractArrayStorageTest {
             for (int i = 4; i < STORAGE_LIMIT + 1; i++) {
                 storage.save(new Resume());
             }
+            StorageException thrown = assertThrows(StorageException.class, () -> storage.save(new Resume()));
+            assertEquals("The storage overflow.", thrown.getMessage());
         } catch (StorageException e) {
             fail("The storage overflow occurred prematurely.");
         }
-        StorageException thrown = assertThrows(StorageException.class, () -> storage.save(new Resume()));
-        assertEquals("The storage overflow.", thrown.getMessage());
+
     }
 
     @Test
