@@ -46,6 +46,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index >= 0) {
             return storage[index];
         }
+
         throw new NotExistStorageException(uuid);
     }
 
@@ -67,13 +68,15 @@ public abstract class AbstractArrayStorage implements Storage {
 
         if (index >= 0) {
             throw new ExistStorageException(uuid);
-        } else if (size >= STORAGE_LIMIT) {
-            throw new StorageException("The storage overflow.", uuid);
-        } else {
-            addResume(r, index);
-            size++;
-            System.out.println("The resume with unique identifier " + uuid + " was successfully saved.");
         }
+
+        if (size >= STORAGE_LIMIT) {
+            throw new StorageException("The storage overflow.", uuid);
+        }
+
+        addResume(r, index);
+        size++;
+        System.out.println("The resume with unique identifier " + uuid + " was successfully saved.");
     }
 
     public void delete(String uuid) {
@@ -81,12 +84,12 @@ public abstract class AbstractArrayStorage implements Storage {
 
         if (index < 0) {
             throw new NotExistStorageException(uuid);
-        } else {
-            deleteResume(index);
-            storage[size - 1] = null;
-            size--;
-            System.out.println("The resume with unique identifier " + uuid + " was successfully deleted.");
         }
+
+        deleteResume(index);
+        storage[size - 1] = null;
+        size--;
+        System.out.println("The resume with unique identifier " + uuid + " was successfully deleted.");
     }
 
     /**
