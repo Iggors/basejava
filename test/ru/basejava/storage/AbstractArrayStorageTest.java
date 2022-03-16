@@ -119,8 +119,7 @@ public abstract class AbstractArrayStorageTest {
     void delete() {
         System.out.println(this);
         storage.delete(UUID_2);
-        StorageException thrown = assertThrows(NotExistStorageException.class, () -> storage.get(UUID_2));
-        assertEquals("The resume with unique identifier " + UUID_2 + " doesn't exist.", thrown.getMessage());
+        assertThrows(NotExistStorageException.class, () -> storage.get(UUID_2));
         assertEquals(2, storage.size(), "Test failed. Storage size must be 2.");
     }
 
