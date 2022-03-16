@@ -37,14 +37,14 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    @DisplayName("Test #1. Check the size() method.")
+    @DisplayName("Check the size() method.")
     void size() {
         System.out.println(this);
         assertEquals(3, storage.size(), "Test failed. Storage size = 3.");
     }
 
     @Test
-    @DisplayName("Test #2. Check the clear() method.")
+    @DisplayName("Check the clear() method.")
     void clear() {
         System.out.println(this);
         storage.clear();
@@ -52,7 +52,7 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    @DisplayName("Test #3. Check the get() method.")
+    @DisplayName("Check the get() method.")
     void get() {
         System.out.println(this);
         assertEquals(r1, storage.get(UUID_1), "Test failed. Resume r1 must be equal storage.get(\"uuid1\").");
@@ -61,14 +61,14 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    @DisplayName("Test #4. Check the dummy resume in the storage.")
+    @DisplayName("Check the dummy resume in the storage.")
     void getNotExist() {
         System.out.println(this);
         assertThrows(NotExistStorageException.class, () -> storage.get(DUMMY_UUID));
     }
 
     @Test
-    @DisplayName("Test #5. Check the ability to update existing resume in the storage.")
+    @DisplayName("Check the ability to update existing resume in the storage.")
     void update() {
         System.out.println(this);
         Resume new_r1 = new Resume(UUID_1);
@@ -77,21 +77,21 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    @DisplayName("Test #6. Check the ability to update not existing resume in the storage.")
+    @DisplayName("Check the ability to update not existing resume in the storage.")
     void updateNotExist() {
         System.out.println(this);
         assertThrows(NotExistStorageException.class, () -> storage.update(storage.get(DUMMY_UUID)));
     }
 
     @Test
-    @DisplayName("Test #7. Check the ability to save existing resume.")
+    @DisplayName("Check the ability to save existing resume.")
     void saveExistingResume() {
         System.out.println(this);
         assertThrows(ExistStorageException.class, () -> storage.save(r2));
     }
 
     @Test
-    @DisplayName("Test #8. Check the ability to save new resume.")
+    @DisplayName("Check the ability to save new resume.")
     void saveNewResume() {
         System.out.println(this);
         storage.save(r4);
@@ -100,7 +100,7 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    @DisplayName("Test #9. Check the storage overflow.")
+    @DisplayName("Check the storage overflow.")
     void storageOverflow() {
         try {
             for (int i = 4; i < STORAGE_LIMIT + 1; i++) {
@@ -115,7 +115,7 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    @DisplayName("Test #10. Check the ability to delete existing resume.")
+    @DisplayName("Check the ability to delete existing resume.")
     void delete() {
         System.out.println(this);
         storage.delete(UUID_2);
@@ -124,14 +124,14 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    @DisplayName("Test #11. Check the ability to delete not existing resume. ")
+    @DisplayName("Check the ability to delete not existing resume. ")
     void deleteNotExist() {
         System.out.println(this);
         assertThrows(NotExistStorageException.class, () -> storage.delete(DUMMY_UUID));
     }
 
     @Test
-    @DisplayName("Test #12. Check the getAll() method.")
+    @DisplayName("Check the getAll() method.")
     void getAll() {
         System.out.println(this);
         Resume[] r = {r1, r2, r3};
