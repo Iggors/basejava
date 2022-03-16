@@ -54,12 +54,12 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(r.getUuid());
         String uuid = r.getUuid();
 
-        if (index >= 0) {
-            storage[index] = r;
-            System.out.println("The resume with unique identifier " + uuid + " was successfully updated.");
-        } else {
+        if (index < 0) {
             throw new NotExistStorageException(uuid);
         }
+
+        storage[index] = r;
+        System.out.println("The resume with unique identifier " + uuid + " was successfully updated.");
     }
 
     public void save(Resume r) {
