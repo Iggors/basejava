@@ -1,7 +1,5 @@
 package ru.basejava.storage;
 
-import ru.basejava.exception.ExistStorageException;
-import ru.basejava.exception.NotExistStorageException;
 import ru.basejava.exception.StorageException;
 import ru.basejava.model.Resume;
 
@@ -12,7 +10,7 @@ import static java.util.Arrays.copyOfRange;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage implements Storage {
+public abstract class AbstractArrayStorage extends AbstractStorage {
     private final static int STORAGE_LIMIT = 10000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -40,62 +38,35 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-
-        if (index >= 0) {
-            return storage[index];
-        }
-
-        throw new NotExistStorageException(uuid);
-    }
-
-    public void update(Resume r) {
-        int index = getIndex(r.getUuid());
-        String uuid = r.getUuid();
-
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        }
-
-        storage[index] = r;
-        System.out.println("The resume with unique identifier " + uuid + " was successfully updated.");
-    }
-
-    public void save(Resume r) {
-        int index = getIndex(r.getUuid());
-        String uuid = r.getUuid();
-
-        if (index >= 0) {
-            throw new ExistStorageException(uuid);
-        }
-
-        if (size >= STORAGE_LIMIT) {
-            throw new StorageException("The storage overflow.", uuid);
-        }
-
-        addResume(r, index);
-        size++;
-        System.out.println("The resume with unique identifier " + uuid + " was successfully saved.");
-    }
-
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        }
-
-        deleteResume(index);
-        storage[size - 1] = null;
-        size--;
-        System.out.println("The resume with unique identifier " + uuid + " was successfully deleted.");
-    }
-
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
         return copyOfRange(storage, 0, size);
+    }
+
+    protected Resume getResume(int index) {
+        return storage[index];
+    }
+
+    protected void updateResume(Resume r, int index) {
+        storage[index] = r;
+//        System.out.println("The resume with unique identifier " + uuid + " was successfully updated.");
+    }
+
+    protected void saveResume(Resume r, int index) {
+        if (size >= STORAGE_LIMIT) {
+            throw new StorageException("The storage overflow.", r.getUuid());
+        }
+        addResume(r, index);
+        size++;
+//        System.out.println("The resume with unique identifier " + uuid + " was successfully saved.");
+    }
+
+    protected void eraseResume(int index) {
+        deleteResume(index);
+        storage[size - 1] = null;
+        size--;
+//        System.out.println("The resume with unique identifier " + uuid + " was successfully deleted.");
     }
 }
