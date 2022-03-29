@@ -119,8 +119,11 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check the getAll() method.")
     void getAll() {
         System.out.println(this);
-        Resume[] r = {r1, r2, r3};
-        assertArrayEquals(r, storage.getAll());
+        Resume[] array = storage.getAll();
+        assertEquals(3, array.length);
+        assertEquals(r1, array[0]);
+        assertEquals(r2, array[1]);
+        assertEquals(r3, array[2]);
     }
 
     @AfterEach
