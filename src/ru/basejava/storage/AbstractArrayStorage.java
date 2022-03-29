@@ -18,7 +18,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     // size - The counter of not null elements in the storage[]
     protected static int size = 0;
 
-    protected abstract int getIndex(String uuid);
+    protected abstract Integer getIndex(String uuid);
 
     protected abstract void addResume(Resume r, int index);
 
@@ -45,25 +45,30 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         return copyOfRange(storage, 0, size);
     }
 
-    protected Resume getResume(int index) {
-        return storage[index];
+    protected Resume getResume(Object index) {
+        return storage[(int) index];
     }
 
-    protected void updateResume(Resume r, int index) {
-        storage[index] = r;
+    protected void updateResume(Resume r, Object index) {
+        storage[(int) index] = r;
     }
 
-    protected void saveResume(Resume r, int index) {
+    protected void saveResume(Resume r, Object index) {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("The storage overflow.", r.getUuid());
         }
-        addResume(r, index);
+        addResume(r, (Integer) index);
         size++;
     }
 
-    protected void eraseResume(int index) {
-        deleteResume(index);
+    protected void eraseResume(Object index) {
+        deleteResume((Integer) index);
         storage[size - 1] = null;
         size--;
+    }
+
+    @Override
+    protected boolean doesResumeExist(Object index) {
+        return (int) index >= 0;
     }
 }
