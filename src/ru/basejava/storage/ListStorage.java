@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    private List<Resume> storage = new ArrayList<>();
+    private final List<Resume> storage = new ArrayList<>();
 
     @Override
     public int size() {
@@ -27,7 +27,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected int getIndex(String uuid) {
+    protected Integer getIndex(String uuid) {
         for (int i = 0; i < storage.size(); i++) {
             if (uuid.equals(storage.get(i).getUuid())) {
                 return i;
@@ -37,22 +37,27 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getResume(int index) {
-        return storage.get(index);
+    protected boolean doesResumeExist(Object index) {
+        return (int) index >= 0;
     }
 
     @Override
-    protected void updateResume(Resume r, int index) {
-        storage.set(index, r);
+    protected Resume getResume(Object index) {
+        return storage.get((int) index);
     }
 
     @Override
-    protected void saveResume(Resume r, int index) {
+    protected void updateResume(Resume r, Object index) {
+        storage.set((int) index, r);
+    }
+
+    @Override
+    protected void saveResume(Resume r, Object index) {
         storage.add(r);
     }
 
     @Override
-    protected void eraseResume(int index) {
-        storage.remove(index);
+    protected void eraseResume(Object index) {
+        storage.remove((int) index);
     }
 }
