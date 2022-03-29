@@ -2,8 +2,7 @@ package ru.basejava.storage;
 
 import ru.basejava.model.Resume;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MapStorage extends AbstractStorage {
     private final Map<String, Resume> storage = new HashMap<>();
@@ -20,7 +19,9 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public Resume[] getAll() {
-        return storage.values().toArray(new Resume[0]);
+        List<Resume> tempStorage = new ArrayList<>(storage.values());
+        Collections.sort(tempStorage);
+        return tempStorage.toArray(new Resume[0]);
 
     }
 
