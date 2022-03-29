@@ -1,7 +1,7 @@
 package ru.basejava;
 
 import ru.basejava.model.Resume;
-import ru.basejava.storage.ListStorage;
+import ru.basejava.storage.MapStorage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +12,8 @@ import java.io.InputStreamReader;
  * (just run, no need to understand)
  */
 public class MainArray {
-    private final static ListStorage ARRAY_STORAGE = new ListStorage();
+//    private final static ListStorage ARRAY_STORAGE = new ListStorage();
+    private final static MapStorage ARRAY_STORAGE = new MapStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
