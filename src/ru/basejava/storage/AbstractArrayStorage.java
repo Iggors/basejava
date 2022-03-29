@@ -51,7 +51,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected void updateResume(Resume r, int index) {
         storage[index] = r;
-//        System.out.println("The resume with unique identifier " + uuid + " was successfully updated.");
     }
 
     protected void saveResume(Resume r, int index) {
@@ -60,13 +59,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
         addResume(r, index);
         size++;
-//        System.out.println("The resume with unique identifier " + uuid + " was successfully saved.");
     }
 
     protected void eraseResume(int index) {
         deleteResume(index);
         storage[size - 1] = null;
         size--;
-//        System.out.println("The resume with unique identifier " + uuid + " was successfully deleted.");
     }
 }
