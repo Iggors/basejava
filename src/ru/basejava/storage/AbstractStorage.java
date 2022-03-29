@@ -16,7 +16,7 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void eraseResume(int index);
 
-    private int indexWhenResumeExists(String uuid) {
+    private int receiveIndexIfExist(String uuid) {
         int index = getIndex(uuid);
 
         if (index >= 0) {
@@ -25,7 +25,7 @@ public abstract class AbstractStorage implements Storage {
         return index;
     }
 
-    private int indexWhenResumeNotExists(String uuid) {
+    private int receiveIndexIfNotExist(String uuid) {
         int index = getIndex(uuid);
 
         if (index < 0) {
@@ -35,22 +35,22 @@ public abstract class AbstractStorage implements Storage {
     }
 
     public void save(Resume r) {
-        int index = indexWhenResumeExists(r.getUuid());
+        int index = receiveIndexIfExist(r.getUuid());
         saveResume(r, index);
     }
 
     public Resume get(String uuid) {
-        int index = indexWhenResumeNotExists(uuid);
+        int index = receiveIndexIfNotExist(uuid);
         return getResume(index);
     }
 
     public void update(Resume r) {
-        int index = indexWhenResumeNotExists(r.getUuid());
+        int index = receiveIndexIfNotExist(r.getUuid());
         updateResume(r, index);
     }
 
     public void delete(String uuid) {
-        int index = indexWhenResumeNotExists(uuid);
+        int index = receiveIndexIfNotExist(uuid);
         eraseResume(index);
     }
 }
