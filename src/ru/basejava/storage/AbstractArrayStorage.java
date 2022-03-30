@@ -57,18 +57,18 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("The storage overflow.", r.getUuid());
         }
-        addResume(r, (Integer) index);
+        addResume(r, (int) index);
         size++;
     }
 
     protected void eraseResume(Object index) {
-        deleteResume((Integer) index);
+        deleteResume((int) index);
         storage[size - 1] = null;
         size--;
     }
 
     @Override
-    protected boolean doesResumeExist(Object index) {
+    protected boolean isExist(Object index) {
         return (int) index >= 0;
     }
 }
