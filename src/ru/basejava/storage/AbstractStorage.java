@@ -6,7 +6,7 @@ import ru.basejava.model.Resume;
 
 public abstract class AbstractStorage implements Storage {
 
-    protected abstract Object getIndex(String uuid);
+    protected abstract Object findSearchKey(String uuid);
 
     protected abstract Resume getResume(Object searchKey);
 
@@ -39,7 +39,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     private Object receiveIndexIfNotExist(String uuid) {
-        Object searchKey = getIndex(uuid);
+        Object searchKey = findSearchKey(uuid);
 
         if (isExist(searchKey)) {
             throw new ExistStorageException(uuid);
@@ -48,7 +48,7 @@ public abstract class AbstractStorage implements Storage {
     }
 
     private Object receiveIndexIfExist(String uuid) {
-        Object searchKey = getIndex(uuid);
+        Object searchKey = findSearchKey(uuid);
 
         if (!isExist(searchKey)) {
             throw new NotExistStorageException(uuid);

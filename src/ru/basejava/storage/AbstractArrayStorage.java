@@ -18,7 +18,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     // size - The counter of not null elements in the storage[]
     protected static int size = 0;
 
-    protected abstract Integer getIndex(String uuid);
+    protected abstract Integer findSearchKey(String uuid);
 
     protected abstract void addResume(Resume r, int index);
 
