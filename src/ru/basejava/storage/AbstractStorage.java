@@ -8,51 +8,51 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract Object getIndex(String uuid);
 
-    protected abstract Resume getResume(Object index);
+    protected abstract Resume getResume(Object searchKey);
 
-    protected abstract void updateResume(Resume r, Object index);
+    protected abstract void updateResume(Resume r, Object searchKey);
 
-    protected abstract void saveResume(Resume r, Object index);
+    protected abstract void saveResume(Resume r, Object searchKey);
 
-    protected abstract void eraseResume(Object index);
+    protected abstract void eraseResume(Object searchKey);
 
-    protected abstract boolean doesResumeExist(Object index);
-
-    private Object receiveIndexIfExist(String uuid) {
-        Object index = getIndex(uuid);
-
-        if (doesResumeExist(index)) {
-            throw new ExistStorageException(uuid);
-        }
-        return index;
-    }
-
-    private Object receiveIndexIfNotExist(String uuid) {
-        Object index = getIndex(uuid);
-
-        if (!doesResumeExist(index)) {
-            throw new NotExistStorageException(uuid);
-        }
-        return index;
-    }
+    protected abstract boolean isExist(Object searchKey);
 
     public void save(Resume r) {
-        Object index = receiveIndexIfExist(r.getUuid());
-        saveResume(r, index);
+        Object searchKey = receiveIndexIfNotExist(r.getUuid());
+        saveResume(r, searchKey);
     }
 
     public Resume get(String uuid) {
-        Object index = receiveIndexIfNotExist(uuid);
-        return getResume(index);
+        Object searchKey = receiveIndexIfExist(uuid);
+        return getResume(searchKey);
     }
 
     public void update(Resume r) {
-        Object index = receiveIndexIfNotExist(r.getUuid());
-        updateResume(r, index);
+        Object searchKey = receiveIndexIfExist(r.getUuid());
+        updateResume(r, searchKey);
     }
 
     public void delete(String uuid) {
-        Object index = receiveIndexIfNotExist(uuid);
-        eraseResume(index);
+        Object searchKey = receiveIndexIfExist(uuid);
+        eraseResume(searchKey);
+    }
+
+    private Object receiveIndexIfNotExist(String uuid) {
+        Object searchKey = getIndex(uuid);
+
+        if (isExist(searchKey)) {
+            throw new ExistStorageException(uuid);
+        }
+        return searchKey;
+    }
+
+    private Object receiveIndexIfExist(String uuid) {
+        Object searchKey = getIndex(uuid);
+
+        if (!isExist(searchKey)) {
+            throw new NotExistStorageException(uuid);
+        }
+        return searchKey;
     }
 }
