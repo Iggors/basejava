@@ -8,6 +8,9 @@ import ru.basejava.exception.ExistStorageException;
 import ru.basejava.exception.NotExistStorageException;
 import ru.basejava.model.Resume;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractStorageTest {
@@ -19,10 +22,10 @@ public abstract class AbstractStorageTest {
     protected static final String NEW_UUID = "new_uuid";
     protected static final String DUMMY_UUID = "dummy";
 
-    private final Resume r1 = new Resume(UUID_1);
-    private final Resume r2 = new Resume(UUID_2);
-    private final Resume r3 = new Resume(UUID_3);
-    private final Resume r4 = new Resume(NEW_UUID);
+    private static final Resume r1 = new Resume(UUID_1, "Person_1");
+    private static final Resume r2 = new Resume(UUID_2, "Person_2");
+    private static final Resume r3 = new Resume(UUID_3, "Person_3");
+    private static final Resume r4 = new Resume(NEW_UUID, "Person_4");
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -55,9 +58,9 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check the get() method.")
     void get() {
         System.out.println(this);
-        assertEquals(r1, storage.get(UUID_1), "Test failed. Resume r1 must be equal storage.get(\"uuid1\").");
-        assertEquals(r2, storage.get(UUID_2), "Test failed. Resume r2 must be equal storage.get(\"uuid2\").");
-        assertEquals(r3, storage.get(UUID_3), "Test failed. Resume r3 must be equal storage.get(\"uuid3\").");
+        assertEquals(r1, storage.get(r1.getUuid()), "Test failed. Resume r1 must be equal storage.get(\"uuid1\").");
+        assertEquals(r2, storage.get(r2.getUuid()), "Test failed. Resume r2 must be equal storage.get(\"uuid2\").");
+        assertEquals(r3, storage.get(r3.getUuid()), "Test failed. Resume r3 must be equal storage.get(\"uuid3\").");
     }
 
     @Test
@@ -71,7 +74,7 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check the ability to update existing resume in the storage.")
     void update() {
         System.out.println(this);
-        Resume new_r1 = new Resume(UUID_1);
+        Resume new_r1 = new Resume(UUID_1,"Person_1");
         storage.update(new_r1);
         assertSame(new_r1, storage.get(UUID_1));
     }
@@ -103,8 +106,8 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check the ability to delete existing resume.")
     void delete() {
         System.out.println(this);
-        storage.delete(UUID_2);
-        assertThrows(NotExistStorageException.class, () -> storage.get(UUID_2));
+        storage.delete(r2.getUuid());
+        assertThrows(NotExistStorageException.class, () -> storage.get(r2.getUuid()));
         assertEquals(2, storage.size(), "Test failed. Storage size must be 2.");
     }
 
@@ -116,11 +119,11 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    @DisplayName("Check the getAll() method.")
-    void getAll() {
+    @DisplayName("Check the getAllSorted() method.")
+    void getAllSorted() {
         System.out.println(this);
-        Resume[] r = {r1, r2, r3};
-        assertArrayEquals(r, storage.getAll());
+        List<Resume> rList = Arrays.asList(r1, r2, r3);
+        assertEquals(rList, storage.getAllSorted());
     }
 
     @AfterEach
