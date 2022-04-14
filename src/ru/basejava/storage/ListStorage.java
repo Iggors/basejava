@@ -6,30 +6,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    private final List<Resume> storage = new ArrayList<>();
+    private final List<Resume> listStorage = new ArrayList<>();
 
     @Override
     public int size() {
-        return storage.size();
+        return listStorage.size();
     }
 
     @Override
     public void clear() {
-        storage.clear();
-    }
-
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-    @Override
-    public Resume[] getAll() {
-        return storage.toArray(new Resume[0]);
+        listStorage.clear();
     }
 
     @Override
     protected Integer findSearchKey(String uuid) {
-        for (int i = 0; i < storage.size(); i++) {
-            if (uuid.equals(storage.get(i).getUuid())) {
+        for (int i = 0; i < listStorage.size(); i++) {
+            if (uuid.equals(listStorage.get(i).getUuid())) {
                 return i;
             }
         }
@@ -43,21 +35,26 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected Resume getResume(Object index) {
-        return storage.get((int) index);
+        return listStorage.get((int) index);
     }
 
     @Override
     protected void updateResume(Resume r, Object index) {
-        storage.set((int) index, r);
+        listStorage.set((int) index, r);
     }
 
     @Override
     protected void saveResume(Resume r, Object index) {
-        storage.add(r);
+        listStorage.add(r);
     }
 
     @Override
     protected void eraseResume(Object index) {
-        storage.remove((int) index);
+        listStorage.remove((int) index);
+    }
+
+    @Override
+    protected List<Resume> copyAllResumes() {
+        return new ArrayList<>(listStorage);
     }
 }
