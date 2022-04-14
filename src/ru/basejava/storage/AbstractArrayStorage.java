@@ -4,6 +4,7 @@ import ru.basejava.exception.StorageException;
 import ru.basejava.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static java.util.Arrays.copyOfRange;
 
@@ -38,13 +39,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-    public Resume[] getAll() {
-        return copyOfRange(storage, 0, size);
-    }
-
     protected Resume getResume(Object index) {
         return storage[(int) index];
     }
@@ -70,5 +64,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     @Override
     protected boolean isExist(Object index) {
         return (int) index >= 0;
+    }
+
+    @Override
+    protected List<Resume> copyAllResumes() {
+        return Arrays.asList(copyOfRange(storage, 0, size));
     }
 }
