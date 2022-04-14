@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 public class MainReflection {
 
     public static void main(String[] arg) throws IllegalAccessException {
-        Resume resume = new Resume();
+        Resume resume = new Resume("Person_1");
         Field field = resume.getClass().getDeclaredFields()[0];
         System.out.println("Fields:");
         field.setAccessible(true);
