@@ -58,9 +58,9 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check the get() method.")
     void get() {
         System.out.println(this);
-        assertEquals(r1, storage.get(r1.getUuid()), "Test failed. Resume r1 must be equal storage.get(\"uuid1\").");
-        assertEquals(r2, storage.get(r2.getUuid()), "Test failed. Resume r2 must be equal storage.get(\"uuid2\").");
-        assertEquals(r3, storage.get(r3.getUuid()), "Test failed. Resume r3 must be equal storage.get(\"uuid3\").");
+        assertEquals(r1, storage.get(UUID_1), "Test failed. Resume r1 must be equal storage.get(\"uuid1\").");
+        assertEquals(r2, storage.get(UUID_2), "Test failed. Resume r2 must be equal storage.get(\"uuid2\").");
+        assertEquals(r3, storage.get(UUID_3), "Test failed. Resume r3 must be equal storage.get(\"uuid3\").");
     }
 
     @Test
@@ -106,8 +106,8 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check the ability to delete existing resume.")
     void delete() {
         System.out.println(this);
-        storage.delete(r2.getUuid());
-        assertThrows(NotExistStorageException.class, () -> storage.get(r2.getUuid()));
+        storage.delete(UUID_2);
+        assertThrows(NotExistStorageException.class, () -> storage.get(UUID_2));
         assertEquals(2, storage.size(), "Test failed. Storage size must be 2.");
     }
 
