@@ -11,7 +11,7 @@ import static java.util.Arrays.copyOfRange;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected final static int STORAGE_LIMIT = 10000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -39,31 +39,31 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-    protected Resume getResume(Object index) {
-        return storage[(int) index];
+    protected Resume getResume(Integer index) {
+        return storage[index];
     }
 
-    protected void updateResume(Resume r, Object index) {
-        storage[(int) index] = r;
+    protected void updateResume(Resume r, Integer index) {
+        storage[index] = r;
     }
 
-    protected void saveResume(Resume r, Object index) {
+    protected void saveResume(Resume r, Integer index) {
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("The storage overflow.", r.getUuid());
         }
-        addResume(r, (int) index);
+        addResume(r, index);
         size++;
     }
 
-    protected void eraseResume(Object index) {
-        deleteResume((int) index);
+    protected void eraseResume(Integer index) {
+        deleteResume(index);
         storage[size - 1] = null;
         size--;
     }
 
     @Override
-    protected boolean isExist(Object index) {
-        return (int) index >= 0;
+    protected boolean isExist(Integer index) {
+        return index >= 0;
     }
 
     @Override
