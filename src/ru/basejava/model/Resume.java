@@ -1,5 +1,7 @@
 package ru.basejava.model;
 
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -10,6 +12,8 @@ public class Resume implements Comparable<Resume> {
     private final String uuid;
 
     private final String fullName;
+    private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -22,6 +26,22 @@ public class Resume implements Comparable<Resume> {
         }
         this.uuid = uuid;
         this.fullName = fullName;
+    }
+
+    public void setSection(Map<SectionType, AbstractSection> section) {
+        this.sections = section;
+    }
+
+    public void setContacts(Map<ContactType, String> contacts) {
+        this.contacts = contacts;
+    }
+
+    public Map<SectionType, AbstractSection> getSection() {
+        return sections;
+    }
+
+    public Map<ContactType, String> getContacts() {
+        return contacts;
     }
 
     public String getUuid() {
