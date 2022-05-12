@@ -23,7 +23,7 @@ public class ListSection extends AbstractSection {
 
         ListSection that = (ListSection) o;
 
-        return Objects.equals(items, that.items);
+        return items.equals(that.items);
     }
 
     @Override

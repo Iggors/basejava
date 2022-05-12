@@ -22,7 +22,7 @@ public class TextSection extends AbstractSection {
 
         TextSection that = (TextSection) o;
 
-        return Objects.equals(description, that.description);
+        return description.equals(that.description);
     }
 
     @Override
