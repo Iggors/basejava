@@ -13,7 +13,7 @@ import java.util.List;
  * (just run, no need to understand)
  */
 public class MainArray {
-//    private final static ListStorage ARRAY_STORAGE = new ListStorage();
+    //    private final static ListStorage ARRAY_STORAGE = new ListStorage();
 //    private final static MapStorage ARRAY_STORAGE = new MapStorage();
     private final static ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 

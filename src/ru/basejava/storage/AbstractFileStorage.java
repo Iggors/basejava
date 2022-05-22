@@ -13,6 +13,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     private final File directory;
 
     protected abstract void doWrite(Resume r, File file) throws IOException;
+
     protected abstract Resume doRead(File file) throws IOException;
 
     protected AbstractFileStorage(File directory) {

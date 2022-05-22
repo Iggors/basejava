@@ -51,10 +51,10 @@ public class Organization {
     }
 
     public static class Position {
-        private final  LocalDate startDate;
-        private final  LocalDate endDate;
-        private final  String title;
-        private final  String description;
+        private final LocalDate startDate;
+        private final LocalDate endDate;
+        private final String title;
+        private final String description;
 
         public Position(int startYear, Month startMonth, String title, String description) {
             this(of(startYear, startMonth), NOW, title, description);

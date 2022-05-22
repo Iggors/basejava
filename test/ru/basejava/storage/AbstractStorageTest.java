@@ -46,7 +46,7 @@ public abstract class AbstractStorageTest {
 
     @BeforeEach
     void setUp() {
-       // System.out.println("Before each test. " + this);
+        // System.out.println("Before each test. " + this);
         storage.save(R1);
         storage.save(R2);
         storage.save(R3);
@@ -87,7 +87,7 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check the ability to update existing resume in the storage.")
     void update() {
         System.out.println(this);
-        Resume new_R1 = new Resume(UUID_1,FULL_NAME_1);
+        Resume new_R1 = new Resume(UUID_1, FULL_NAME_1);
         storage.update(new_R1);
         assertSame(new_R1, storage.get(UUID_1));
     }

@@ -20,13 +20,13 @@ public class MainReflection {
         field.setAccessible(false);
     }
 
-    public static void invokeToStringMethod(Object object){
+    public static void invokeToStringMethod(Object object) {
         try {
-            Method method =  object.getClass().getDeclaredMethod("toString");
+            Method method = object.getClass().getDeclaredMethod("toString");
             method.setAccessible(true);
             System.out.println(method.invoke(object));
             method.setAccessible(false);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e){
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
 
