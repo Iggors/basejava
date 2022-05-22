@@ -1,9 +1,13 @@
 package ru.basejava.model;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import static ru.basejava.util.DateUtil.of;
+import static ru.basejava.util.DateUtil.NOW;
 
 public class Organization {
     private final Link homePage;
@@ -52,13 +56,12 @@ public class Organization {
         private final  String title;
         private final  String description;
 
-        public Position(LocalDate startDate, String title, String description) {
-            Objects.requireNonNull(startDate, "startDate must not be null");
-            Objects.requireNonNull(title, "title must not be null");
-            this.startDate = startDate;
-            this.endDate = null;
-            this.title = title;
-            this.description = description;
+        public Position(int startYear, Month startMonth, String title, String description) {
+            this(of(startYear, startMonth), NOW, title, description);
+        }
+
+        public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
+            this(of(startYear, startMonth), of(endYear, endMonth), title, description);
         }
 
         public Position(LocalDate startDate, LocalDate endDate, String title, String description) {

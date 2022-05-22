@@ -2,7 +2,7 @@ package ru.basejava;
 
 import ru.basejava.model.*;
 
-import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -103,19 +103,18 @@ public class ResumeTestData {
 
         List<Organization> Organization = new ArrayList<>();
         Organization.add(new Organization("Java Online Projects", "http://javaops.ru/",
-                new Organization.Position(LocalDate.of(2013, 10, 1),
+                new Organization.Position(2013, Month.OCTOBER,
                         "Автор проекта.", "Создание, организация проведение Java онлайн " +
                         "проектов и стажировок. \n")));
 
         Organization.add(new Organization("Wrike", "https://www.wrike.com/", new Organization.Position(
-                LocalDate.of(2014, 10, 1), LocalDate.of(2016, 1,
-                1), "Старший разработчик (backend)",
+                2014, Month.OCTOBER, 2016, Month.JANUARY, "Старший разработчик (backend)",
                 "Проектирование и разработка онлайн платформы управления проектами Wrike " +
                         "(Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная " +
                         "аутентификация, авторизация по OAuth1, OAuth2, JWT SSO. \n")));
 
-        Organization.add(new Organization("RIT Center", null, new Organization.Position(LocalDate.of(2012,
-                4, 1), LocalDate.of(2014, 10, 1), "Java архитектор",
+        Organization.add(new Organization("RIT Center", null, new Organization.Position(
+                2012, Month.APRIL, 2014, Month.OCTOBER, "Java архитектор",
                 "Организация процесса разработки системы ERP для разных окружений: релизная политика," +
                         " версионирование, ведение" +
                         " CI (Jenkins), миграция базы (кастомизация Flyway), конфигурирование системы (pgBoucer, Nginx), " +
@@ -126,8 +125,7 @@ public class ResumeTestData {
                         " Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python \n")));
 
         Organization.add(new Organization("Luxoft (Deutsche Bank)", "http://www.luxoft.ru/",
-                new Organization.Position(LocalDate.of(2010, 12, 1), LocalDate.of(2012, 4,
-                        1), "Ведущий программист",
+                new Organization.Position(2010, Month.DECEMBER, 2012, Month.APRIL, "Ведущий программист",
                         "Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC, " +
                                 "SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM. Реализация " +
                                 "RIA-приложения для администрирования, мониторинга и анализа результатов в области " +
@@ -135,26 +133,28 @@ public class ResumeTestData {
                                 " Commet, HTML5. \n")));
 
         Organization.add(new Organization("Yota", "https://www.yota.ru/",
-                new Organization.Position(LocalDate.of(2008, 6, 1), LocalDate.of(2010, 12,
-                        1), "Ведущий специалист", "Дизайн и " +
-                        "имплементация Java EE фреймворка для отдела \"Платежные Системы\" (GlassFish v2.1, v3, OC4J, EJB3," +
-                        " JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2). Реализация администрирования, статистики и " +
-                        "мониторинга фреймворка. Разработка online JMX клиента (Python/ Jython, Django, ExtJS) \n")));
+                new Organization.Position(2008, Month.JUNE, 2010, Month.DECEMBER,
+                        "Ведущий специалист",
+                        "Дизайн и имплементация Java EE фреймворка для отдела \"Платежные Системы\" " +
+                                "(GlassFish v2.1, v3, OC4J, EJB3, JAX-WS RI 2.1, Servlet 2.4, JSP, JMX, JMS, Maven2)." +
+                                "Реализация администрирования, статистики и мониторинга фреймворка. Разработка \" + " +
+                                "online JMX клиента (Python/ Jython, Django, ExtJS) \n")));
 
         Organization.add(new Organization("Enkata", "http://enkata.com/",
-                new Organization.Position(LocalDate.of(2007, 3, 1), LocalDate.of(2008, 6,
-                        1), "Разработчик ПО",
+                new Organization.Position(2007, Month.MARCH, 2008, Month.JUNE,
+                        "Разработчик ПО",
                         "Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0, " +
                                 "Tomcat, JMS) частей кластерного J2EE приложения (OLAP, Data mining). \n")));
 
         Organization.add(new Organization("Siemens AG", "https://www.siemens.com/ru/ru/home.html",
-                new Organization.Position(LocalDate.of(2005, 1, 1), LocalDate.of(2007, 2,
-                        1), "Разработчик ПО", "Разработка информационной модели, проектирование " +
+                new Organization.Position(2005, Month.JANUARY, 2007, Month.FEBRUARY,
+                        "Разработчик ПО",
+                        "Разработка информационной модели, проектирование " +
                         "интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix). \n")));
 
         Organization.add(new Organization("Alcatel", "http://www.alcatel.ru/",
-                new Organization.Position(LocalDate.of(1997, 9, 1), LocalDate.of(2005, 1,
-                        1), "Инженер по аппаратному и программному тестированию",
+                new Organization.Position(1997, Month.SEPTEMBER, 2005, Month.JANUARY,
+                        "Инженер по аппаратному и программному тестированию",
                         "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12" +
                                 " (CHILL, ASM). \n")));
 
@@ -163,37 +163,31 @@ public class ResumeTestData {
 
         List<Organization> education = new ArrayList<>();
         education.add(new Organization("Coursera", "https://www.coursera.org/course/progfun",
-                new Organization.Position(LocalDate.of(2013, 3, 1), LocalDate.of(2013, 5,
-                        1), "'Functional Programming Principles in Scala'" +
-                        " by Martin Odersky", "\n")));
+                new Organization.Position(2013, Month.MARCH, 2013, Month.MAY,
+                        "'Functional Programming Principles in Scala' by Martin Odersky", "\n")));
 
         education.add(new Organization("Luxoft", "http://www.luxoft-training.ru/training/catalog/course.html?ID=22366",
-                new Organization.Position(LocalDate.of(2011, 3, 1), LocalDate.of(2011, 4,
-                        1), "Курс 'Объектно-ориентированный анализ ИС. " +
-                        "Концептуальное моделирование на UML.'", "\n")));
+                new Organization.Position(2011, Month.MARCH, 2011, Month.APRIL,
+                        "Курс 'Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.'", "\n")));
 
         education.add(new Organization("Siemens AG", "http://www.siemens.ru/",
-                new Organization.Position(LocalDate.of(2005, 1, 1), LocalDate.of(2005, 4,
-                        1), "3 месяца обучения мобильным IN сетям (Берлин)", "\n")));
+                new Organization.Position(2005, Month.JANUARY, 2005, Month.APRIL,
+                        "3 месяца обучения мобильным IN сетям (Берлин)", "\n")));
 
         education.add(new Organization("Alcatel", "http://www.alcatel.ru/",
-                new Organization.Position(LocalDate.of(1997, 9, 1), LocalDate.of(1998, 3,
-                        1), "6 месяцев обучения цифровым телефонным " +
-                        "сетям (Москва)", "\n")));
+                new Organization.Position(1997, Month.SEPTEMBER, 1998, Month.MARCH,
+                        "6 месяцев обучения цифровым телефонным сетям (Москва)", "\n")));
 
         education.add(new Organization("Санкт-Петербургский национальный исследовательский университет " +
                 "информационных технологий, механики и оптики", "http://www.ifmo.ru/",
-                new Organization.Position(LocalDate.of(1993, 9, 1), LocalDate.of(1996, 7,
-                        1), "Аспирантура (программист С, С++)",
-                        "\n"),
-                new Organization.Position(LocalDate.of(1987, 9, 1), LocalDate.of(1993, 7,
-                        1), "Инженер (программист Fortran, C)",
-                        "\n")));
+                new Organization.Position(1993, Month.SEPTEMBER, 1996, Month.JULY,
+                        "Аспирантура (программист С, С++)", "\n"),
+                new Organization.Position(1987, Month.SEPTEMBER, 1993, Month.JULY,
+                        "Инженер (программист Fortran, C)","\n")));
 
         education.add(new Organization("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/",
-                new Organization.Position(LocalDate.of(1984, 9, 1), LocalDate.of(1987, 6,
-                        1), "Закончил" +
-                        " с отличием", "\n")));
+                new Organization.Position(1984, Month.SEPTEMBER, 1987, Month.JUNE,
+                        "Закончил с отличием", "\n")));
 
         section.put(SectionType.EDUCATION, new OrganizationSection(education));
 
