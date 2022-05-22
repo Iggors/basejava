@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ru.basejava.ResumeTestData;
 import ru.basejava.exception.ExistStorageException;
 import ru.basejava.exception.NotExistStorageException;
 import ru.basejava.model.Resume;
@@ -16,16 +17,28 @@ import static org.junit.jupiter.api.Assertions.*;
 public abstract class AbstractStorageTest {
     protected Storage storage;
 
-    protected static final String UUID_1 = "uuid1";
-    protected static final String UUID_2 = "uuid2";
-    protected static final String UUID_3 = "uuid3";
+    protected static final String UUID_1 = "uuid_1";
+    protected static final String UUID_2 = "uuid_2";
+    protected static final String UUID_3 = "uuid_3";
     protected static final String NEW_UUID = "new_uuid";
     protected static final String DUMMY_UUID = "dummy";
 
-    private static final Resume r1 = new Resume(UUID_1, "Person_1");
-    private static final Resume r2 = new Resume(UUID_2, "Person_2");
-    private static final Resume r3 = new Resume(UUID_3, "Person_3");
-    private static final Resume r4 = new Resume(NEW_UUID, "Person_4");
+    protected static final String FULL_NAME_1 = "name_1";
+    protected static final String FULL_NAME_2 = "name_2";
+    protected static final String FULL_NAME_3 = "name_3";
+    protected static final String NEW_FULL_NAME = "new_name";
+
+    private static final Resume R1;
+    private static final Resume R2;
+    private static final Resume R3;
+    private static final Resume R4;
+
+    static {
+        R1 = ResumeTestData.resumeCreator(UUID_1, FULL_NAME_1);
+        R2 = ResumeTestData.resumeCreator(UUID_2, FULL_NAME_2);
+        R3 = ResumeTestData.resumeCreator(UUID_3, FULL_NAME_3);
+        R4 = ResumeTestData.resumeCreator(NEW_UUID, NEW_FULL_NAME);
+    }
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -33,10 +46,10 @@ public abstract class AbstractStorageTest {
 
     @BeforeEach
     void setUp() {
-        System.out.println("Before each test. " + this);
-        storage.save(r1);
-        storage.save(r2);
-        storage.save(r3);
+       // System.out.println("Before each test. " + this);
+        storage.save(R1);
+        storage.save(R2);
+        storage.save(R3);
     }
 
     @Test
@@ -58,9 +71,9 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check the get() method.")
     void get() {
         System.out.println(this);
-        assertEquals(r1, storage.get(UUID_1), "Test failed. Resume r1 must be equal storage.get(\"uuid1\").");
-        assertEquals(r2, storage.get(UUID_2), "Test failed. Resume r2 must be equal storage.get(\"uuid2\").");
-        assertEquals(r3, storage.get(UUID_3), "Test failed. Resume r3 must be equal storage.get(\"uuid3\").");
+        assertEquals(R1, storage.get(UUID_1), "Test failed. Resume R1 must be equal storage.get(\"uuid1\").");
+        assertEquals(R2, storage.get(UUID_2), "Test failed. Resume R2 must be equal storage.get(\"uuid2\").");
+        assertEquals(R3, storage.get(UUID_3), "Test failed. Resume R3 must be equal storage.get(\"uuid3\").");
     }
 
     @Test
@@ -74,9 +87,9 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check the ability to update existing resume in the storage.")
     void update() {
         System.out.println(this);
-        Resume new_r1 = new Resume(UUID_1,"Person_1");
-        storage.update(new_r1);
-        assertSame(new_r1, storage.get(UUID_1));
+        Resume new_R1 = new Resume(UUID_1,FULL_NAME_1);
+        storage.update(new_R1);
+        assertSame(new_R1, storage.get(UUID_1));
     }
 
     @Test
@@ -90,15 +103,15 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check the ability to save existing resume.")
     void saveExistingResume() {
         System.out.println(this);
-        assertThrows(ExistStorageException.class, () -> storage.save(r2));
+        assertThrows(ExistStorageException.class, () -> storage.save(R2));
     }
 
     @Test
     @DisplayName("Check the ability to save new resume.")
     void saveNewResume() {
         System.out.println(this);
-        storage.save(r4);
-        assertEquals(r4, storage.get(NEW_UUID), "Test failed. New resume must be saved in the storage.");
+        storage.save(R4);
+        assertEquals(R4, storage.get(NEW_UUID), "Test failed. New resume must be saved in the storage.");
         assertEquals(4, storage.size(), "Test failed. Storage size must be 4.");
     }
 
@@ -122,7 +135,7 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check the getAllSorted() method.")
     void getAllSorted() {
         System.out.println(this);
-        List<Resume> rList = Arrays.asList(r1, r2, r3);
+        List<Resume> rList = Arrays.asList(R1, R2, R3);
         assertEquals(rList, storage.getAllSorted());
     }
 
