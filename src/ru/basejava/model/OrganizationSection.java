@@ -11,6 +11,10 @@ public class OrganizationSection extends AbstractSection {
         this.listOrganizations = listOrganizations;
     }
 
+    public List<Organization> getOrganizations() {
+        return listOrganizations;
+    }
+
     @Override
     public String toString() {
         return listOrganizations.toString();

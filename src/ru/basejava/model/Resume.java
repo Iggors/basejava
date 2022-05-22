@@ -2,6 +2,7 @@ package ru.basejava.model;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -12,6 +13,7 @@ public class Resume implements Comparable<Resume> {
     private final String uuid;
 
     private final String fullName;
+
     private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
     private Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
@@ -20,12 +22,46 @@ public class Resume implements Comparable<Resume> {
     }
 
     public Resume(String uuid, String fullName) {
-        if (uuid == null || fullName == null) {
-            throw new IllegalArgumentException(String.format("Parameters can't be null: uuid=%s, fullName=%s",
-                    uuid, fullName));
-        }
+        Objects.requireNonNull(uuid, "uuid must not be null");
+        Objects.requireNonNull(fullName, "fullName must not be null");
         this.uuid = uuid;
         this.fullName = fullName;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setSection(Map<SectionType, AbstractSection> section) {
+        this.sections = section;
+    }
+
+    public void setContacts(Map<ContactType, String> contacts) {
+        this.contacts = contacts;
+    }
+
+    public Map<SectionType, AbstractSection> getSection() {
+        return sections;
+    }
+
+    public Map<ContactType, String> getContacts() {
+        return contacts;
+    }
+
+
+    @Override
+    public String toString() {
+        return uuid + " - " + fullName;
+    }
+
+    @Override
+    public int compareTo(Resume o) {
+        int result = fullName.compareTo(o.fullName);
+        return result == 0 ? uuid.compareTo(o.uuid) : result;
     }
 
     @Override
@@ -48,40 +84,5 @@ public class Resume implements Comparable<Resume> {
         result = 31 * result + contacts.hashCode();
         result = 31 * result + sections.hashCode();
         return result;
-    }
-
-    public void setSection(Map<SectionType, AbstractSection> section) {
-        this.sections = section;
-    }
-
-    public void setContacts(Map<ContactType, String> contacts) {
-        this.contacts = contacts;
-    }
-
-    public Map<SectionType, AbstractSection> getSection() {
-        return sections;
-    }
-
-    public Map<ContactType, String> getContacts() {
-        return contacts;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    @Override
-    public String toString() {
-        return uuid + " - " + fullName;
-    }
-
-    @Override
-    public int compareTo(Resume o) {
-        int result = fullName.compareTo(o.fullName);
-        return result == 0 ? uuid.compareTo(o.uuid) : result;
     }
 }

@@ -6,13 +6,17 @@ import java.util.List;
 import java.util.Objects;
 
 public class Organization {
-    private final String companyName;
-    private final String link;
+    private final Link homePage;
+
     private final List<Position> positions;
 
-    public Organization(String companyName, String link, Position... positions) {
-        this.companyName = companyName;
-        this.link = link;
+    public Organization(Link homePage, List<Position> positions) {
+        this.homePage = homePage;
+        this.positions = positions;
+    }
+
+    public Organization(String name, String url, Position... positions) {
+        this.homePage = new Link(name, url);
         this.positions = Arrays.asList(positions);
     }
 
@@ -23,15 +27,13 @@ public class Organization {
 
         Organization that = (Organization) o;
 
-        if (!companyName.equals(that.companyName)) return false;
-        if (!link.equals(that.link)) return false;
+        if (homePage != null ? !homePage.equals(that.homePage) : that.homePage != null) return false;
         return positions.equals(that.positions);
     }
 
     @Override
     public int hashCode() {
-        int result = companyName.hashCode();
-        result = 31 * result + link.hashCode();
+        int result = homePage != null ? homePage.hashCode() : 0;
         result = 31 * result + positions.hashCode();
         return result;
     }
@@ -39,8 +41,7 @@ public class Organization {
     @Override
     public String toString() {
         return "Organization{" +
-                "companyName='" + companyName + '\'' +
-                ", Link='" + link + '\'' +
+                "homePage=" + homePage +
                 ", positions=" + positions +
                 '}';
     }
@@ -70,6 +71,22 @@ public class Organization {
             this.description = description;
         }
 
+        public LocalDate getStartDate() {
+            return startDate;
+        }
+
+        public LocalDate getEndDate() {
+            return endDate;
+        }
+
+        public String gettitle() {
+            return title;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
@@ -78,23 +95,28 @@ public class Organization {
             Position position = (Position) o;
 
             if (!startDate.equals(position.startDate)) return false;
-            if (endDate != null ? !endDate.equals(position.endDate) : position.endDate != null) return false;
+            if (!endDate.equals(position.endDate)) return false;
             if (!title.equals(position.title)) return false;
-            return description.equals(position.description);
+            return description != null ? description.equals(position.description) : position.description == null;
         }
 
         @Override
         public int hashCode() {
             int result = startDate.hashCode();
-            result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
+            result = 31 * result + endDate.hashCode();
             result = 31 * result + title.hashCode();
-            result = 31 * result + description.hashCode();
+            result = 31 * result + (description != null ? description.hashCode() : 0);
             return result;
         }
 
         @Override
         public String toString() {
-            return "\nPosition(" + startDate + ',' + endDate + ',' + title + ',' + description + ')';
+            return "Position{" +
+                    "startDate=" + startDate +
+                    ", endDate=" + endDate +
+                    ", title='" + title + '\'' +
+                    ", description='" + description + '\'' +
+                    '}';
         }
     }
 }

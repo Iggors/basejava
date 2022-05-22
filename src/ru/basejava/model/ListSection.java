@@ -11,6 +11,10 @@ public class ListSection extends AbstractSection {
         this.items = items;
     }
 
+    public List<String> getItems() {
+        return items;
+    }
+
     @Override
     public String toString() {
         return items + "\n";
