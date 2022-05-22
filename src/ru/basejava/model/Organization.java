@@ -79,7 +79,7 @@ public class Organization {
             return endDate;
         }
 
-        public String gettitle() {
+        public String getTitle() {
             return title;
         }
 
