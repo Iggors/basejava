@@ -10,7 +10,18 @@ import java.util.Map;
 
 public class ResumeTestData {
     public static void main(String[] args) {
-        Resume testResume = new Resume("Григорий Кислин");
+        String testUuid = "uuid";
+        String testfullName = "Григорий Кислин";
+        Resume testResume = resumeCreator(testUuid, testfullName);
+
+        System.out.println(testResume.getFullName());
+        System.out.println(testResume.getContacts());
+        System.out.println(testResume.getSection());
+    }
+
+    public static Resume resumeCreator(String testUuid, String testfullName) {
+        Resume resume = new Resume(testUuid, testfullName);
+
         Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
 
         contacts.put(ContactType.PHONE, "+7(921) 855-0482 \n");
@@ -150,7 +161,7 @@ public class ResumeTestData {
                 new Organization.Position(2005, Month.JANUARY, 2007, Month.FEBRUARY,
                         "Разработчик ПО",
                         "Разработка информационной модели, проектирование " +
-                        "интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix). \n")));
+                                "интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix). \n")));
 
         Organization.add(new Organization("Alcatel", "http://www.alcatel.ru/",
                 new Organization.Position(1997, Month.SEPTEMBER, 2005, Month.JANUARY,
@@ -183,7 +194,7 @@ public class ResumeTestData {
                 new Organization.Position(1993, Month.SEPTEMBER, 1996, Month.JULY,
                         "Аспирантура (программист С, С++)", "\n"),
                 new Organization.Position(1987, Month.SEPTEMBER, 1993, Month.JULY,
-                        "Инженер (программист Fortran, C)","\n")));
+                        "Инженер (программист Fortran, C)", "\n")));
 
         education.add(new Organization("Заочная физико-техническая школа при МФТИ", "http://www.school.mipt.ru/",
                 new Organization.Position(1984, Month.SEPTEMBER, 1987, Month.JUNE,
@@ -191,11 +202,9 @@ public class ResumeTestData {
 
         section.put(SectionType.EDUCATION, new OrganizationSection(education));
 
-        testResume.setContacts(contacts);
-        testResume.setSection(section);
+        resume.setContacts(contacts);
+        resume.setSection(section);
 
-        System.out.println(testResume.getFullName());
-        System.out.println(testResume.getContacts());
-        System.out.println(testResume.getSection());
+        return resume;
     }
 }
