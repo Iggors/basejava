@@ -11,13 +11,18 @@ public class MainFile {
     }
 
     private static void getSubDirectory(File dir) {
-        System.out.println(dir.getAbsolutePath());
+        File[] children = dir.listFiles();
 
-        if (dir.isDirectory()) {
-            File[] children = dir.listFiles();
+        if (children != null) {
             for (File child : children) {
-                getSubDirectory(child);
+                if (child.isFile()) {
+                    System.out.println("File: " + child.getName());
+                } else if (child.isDirectory()) {
+                    System.out.println("Directory: " + child.getName());
+                    getSubDirectory(child);
+                }
             }
         }
+
     }
 }
