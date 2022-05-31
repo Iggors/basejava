@@ -9,12 +9,15 @@ import ru.basejava.exception.ExistStorageException;
 import ru.basejava.exception.NotExistStorageException;
 import ru.basejava.model.Resume;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractStorageTest {
+    protected static final File STORAGE_DIR = new File("F:\\Development\\Java\\basejava\\storage");
+
     protected Storage storage;
 
     protected static final String UUID_1 = "uuid_1";
@@ -87,9 +90,10 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check the ability to update existing resume in the storage.")
     void update() {
         System.out.println(this);
-        Resume new_R1 = new Resume(UUID_1, FULL_NAME_1);
+        Resume new_R1 = new Resume(UUID_1, NEW_FULL_NAME);
         storage.update(new_R1);
-        assertSame(new_R1, storage.get(UUID_1));
+        assertEquals(new_R1, storage.get(UUID_1));
+        //assertSame(new_R1, storage.get(UUID_1));
     }
 
     @Test

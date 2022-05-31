@@ -3,10 +3,12 @@ package ru.basejava;
 import java.io.File;
 
 public class MainFile {
-    public static void main(String[] args) {
-        String filePath = "../basejava";
-        File dir = new File(filePath);
+    private static String counter = "|-";
 
+    public static void main(String[] args) {
+        String path = "../basejava/src";
+        File dir = new File(path);
+        System.out.println(dir.getName());
         getSubDirectory(dir);
     }
 
@@ -16,12 +18,14 @@ public class MainFile {
         if (children != null) {
             for (File child : children) {
                 if (child.isFile()) {
-                    System.out.println("File: " + child.getName());
+                    System.out.println(counter + "File: " + child.getName());
                 } else if (child.isDirectory()) {
-                    System.out.println("Directory: " + child.getName());
+                    System.out.println(counter + "Directory: " + child.getName());
+                    counter += '-';
                     getSubDirectory(child);
                 }
             }
+            counter = counter.substring(0, counter.length() - 1);
         }
 
     }
