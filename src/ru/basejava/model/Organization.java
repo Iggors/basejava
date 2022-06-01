@@ -53,7 +53,7 @@ public class Organization implements Serializable {
                 '}';
     }
 
-    public static class Position implements Serializable{
+    public static class Position implements Serializable {
         private final LocalDate startDate;
         private final LocalDate endDate;
         private final String title;
