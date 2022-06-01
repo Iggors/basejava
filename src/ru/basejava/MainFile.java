@@ -27,6 +27,5 @@ public class MainFile {
             }
             counter = counter.substring(0, counter.length() - 1);
         }
-
     }
 }
