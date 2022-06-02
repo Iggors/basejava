@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PathStorage extends AbstractStorage<Path> {
     private final Path directory;
@@ -54,10 +55,10 @@ public class PathStorage extends AbstractStorage<Path> {
     protected void saveResume(Resume r, Path path) {
         try {
             Files.createFile(path);
-            updateResume(r, path);
         } catch (IOException e) {
             throw new StorageException("Path save error: " + path, path.getFileName().toString(), e);
         }
+        updateResume(r, path);
     }
 
     @Override
@@ -76,28 +77,24 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     protected List<Resume> copyAllResumes() {
-        try {
-            return Files.list(directory).map(path -> getResume(path)).collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new StorageException("Path read error", null, e);
-        }
+       return getFilesList().map(this::getResume).collect(Collectors.toList());
     }
 
     @Override
     public int size() {
-        try {
-            return (int) Files.list(directory).count();
-        } catch (IOException e) {
-            throw new StorageException("Directory read error", null, e);
-        }
+        return (int) getFilesList().count();
     }
 
     @Override
     public void clear() {
+        getFilesList().forEach(this::eraseResume);
+    }
+
+    private Stream<Path> getFilesList() {
         try {
-            Files.list(directory).forEach(this::eraseResume);
+            return Files.list(directory);
         } catch (IOException e) {
-            throw new StorageException("Path delete error", null, e);
+            throw new StorageException("Directory read error", e);
         }
     }
 }
