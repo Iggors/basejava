@@ -11,7 +11,7 @@ import java.util.Objects;
 public class FileStorage extends AbstractStorage<File> {
     private final File directory;
 
-    private StreamSerializerStrategy streamSerializerStrategy;
+    private final StreamSerializerStrategy streamSerializerStrategy;
 
     protected FileStorage(File directory, StreamSerializerStrategy streamSerializerStrategy) {
         this.streamSerializerStrategy = streamSerializerStrategy;
@@ -53,10 +53,10 @@ public class FileStorage extends AbstractStorage<File> {
     protected void saveResume(Resume r, File file) {
         try {
             file.createNewFile();
-            streamSerializerStrategy.doWrite(r, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("Couldn't create file " + file.getAbsolutePath(), file.getName(), e);
         }
+        updateResume(r, file);
     }
 
     @Override
@@ -73,8 +73,10 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> copyAllResumes() {
-        List<Resume> fileList = new ArrayList<>(getFilesList().length);
-        for (File file : getFilesList()) {
+        File[] fList = getFilesList();
+        List<Resume> fileList = new ArrayList<>(fList.length);
+
+        for (File file : fList) {
             fileList.add(getResume(file));
         }
         return fileList;
@@ -82,11 +84,7 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     public int size() {
-        String[] fileList = directory.list();
-        if (fileList == null) {
-            throw new StorageException("Directory read error", directory.getName());
-        }
-        return fileList.length;
+        return getFilesList().length;
     }
 
     @Override
