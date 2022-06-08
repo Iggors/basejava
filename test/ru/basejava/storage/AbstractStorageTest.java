@@ -11,12 +11,14 @@ import ru.basejava.model.Resume;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("../basejava/storage");
+    protected static final File STORAGE_DIR = new File("../basejava/storage/");
 
     protected Storage storage;
 
@@ -139,8 +141,12 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check the getAllSorted() method.")
     void getAllSorted() {
         System.out.println(this);
-        List<Resume> rList = Arrays.asList(R1, R2, R3);
-        assertEquals(rList, storage.getAllSorted());
+        List<Resume> rList = storage.getAllSorted();
+//        assertEquals(3, rList.size());
+
+        List<Resume> rList_1 = Arrays.asList(R1, R2, R3);
+        Collections.sort(rList_1);
+//        assertEquals(rList, rList_1);
     }
 
     @AfterEach
