@@ -1,6 +1,5 @@
 package ru.basejava.storage;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -52,6 +51,7 @@ public abstract class AbstractStorageTest {
     @BeforeEach
     void setUp() {
         // System.out.println("Before each test. " + this);
+        storage.clear();
         storage.save(R1);
         storage.save(R2);
         storage.save(R3);
@@ -149,10 +149,10 @@ public abstract class AbstractStorageTest {
 //        assertEquals(rList, rList_1);
     }
 
-    @AfterEach
-    void clearSetUp() {
-        System.out.println("After each test. " + this);
-        storage.clear();
-        System.out.println("\n");
-    }
+//    @AfterEach
+//    void clearSetUp() {
+//        System.out.println("After each test. " + this);
+//        storage.clear();
+//        System.out.println("\n");
+//    }
 }
