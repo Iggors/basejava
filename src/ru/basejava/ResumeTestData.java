@@ -111,20 +111,19 @@ public class ResumeTestData {
 
         section.put(SectionType.QUALIFICATIONS, new ListSection(qualification));
 
-
-        List<Organization> Organization = new ArrayList<>();
-        Organization.add(new Organization("Java Online Projects", "http://javaops.ru/",
+        List<Organization> organizations = new ArrayList<>();
+        organizations.add(new Organization("Java Online Projects", "http://javaops.ru/",
                 new Organization.Position(2013, Month.OCTOBER,
                         "Автор проекта.", "Создание, организация проведение Java онлайн " +
                         "проектов и стажировок. \n")));
 
-        Organization.add(new Organization("Wrike", "https://www.wrike.com/", new Organization.Position(
+        organizations.add(new Organization("Wrike", "https://www.wrike.com/", new Organization.Position(
                 2014, Month.OCTOBER, 2016, Month.JANUARY, "Старший разработчик (backend)",
                 "Проектирование и разработка онлайн платформы управления проектами Wrike " +
                         "(Java 8 API, Maven, Spring, MyBatis, Guava, Vaadin, PostgreSQL, Redis). Двухфакторная " +
                         "аутентификация, авторизация по OAuth1, OAuth2, JWT SSO. \n")));
 
-        Organization.add(new Organization("RIT Center", null, new Organization.Position(
+        organizations.add(new Organization("RIT Center", null, new Organization.Position(
                 2012, Month.APRIL, 2014, Month.OCTOBER, "Java архитектор",
                 "Организация процесса разработки системы ERP для разных окружений: релизная политика," +
                         " версионирование, ведение" +
@@ -135,7 +134,7 @@ public class ResumeTestData {
                         "development, Ant, Apache Commons, Spring security, Spring MVC, Tomcat,WSO2, xcmis, OpenCmis," +
                         " Bonita, Python scripting, Unix shell remote scripting via ssh tunnels, PL/Python \n")));
 
-        Organization.add(new Organization("Luxoft (Deutsche Bank)", "http://www.luxoft.ru/",
+        organizations.add(new Organization("Luxoft (Deutsche Bank)", "http://www.luxoft.ru/",
                 new Organization.Position(2010, Month.DECEMBER, 2012, Month.APRIL, "Ведущий программист",
                         "Участие в проекте Deutsche Bank CRM (WebLogic, Hibernate, Spring, Spring MVC, " +
                                 "SmartGWT, GWT, Jasper, Oracle). Реализация клиентской и серверной части CRM. Реализация " +
@@ -143,7 +142,7 @@ public class ResumeTestData {
                                 "алгоритмического трейдинга. JPA, Spring, Spring-MVC, GWT, ExtGWT (GXT), Highstock," +
                                 " Commet, HTML5. \n")));
 
-        Organization.add(new Organization("Yota", "https://www.yota.ru/",
+        organizations.add(new Organization("Yota", "https://www.yota.ru/",
                 new Organization.Position(2008, Month.JUNE, 2010, Month.DECEMBER,
                         "Ведущий специалист",
                         "Дизайн и имплементация Java EE фреймворка для отдела \"Платежные Системы\" " +
@@ -151,25 +150,25 @@ public class ResumeTestData {
                                 "Реализация администрирования, статистики и мониторинга фреймворка. Разработка \" + " +
                                 "online JMX клиента (Python/ Jython, Django, ExtJS) \n")));
 
-        Organization.add(new Organization("Enkata", "http://enkata.com/",
+        organizations.add(new Organization("Enkata", "http://enkata.com/",
                 new Organization.Position(2007, Month.MARCH, 2008, Month.JUNE,
                         "Разработчик ПО",
                         "Реализация клиентской (Eclipse RCP) и серверной (JBoss 4.2, Hibernate 3.0, " +
                                 "Tomcat, JMS) частей кластерного J2EE приложения (OLAP, Data mining). \n")));
 
-        Organization.add(new Organization("Siemens AG", "https://www.siemens.com/ru/ru/home.html",
+        organizations.add(new Organization("Siemens AG", "https://www.siemens.com/ru/ru/home.html",
                 new Organization.Position(2005, Month.JANUARY, 2007, Month.FEBRUARY,
                         "Разработчик ПО",
                         "Разработка информационной модели, проектирование " +
                                 "интерфейсов, реализация и отладка ПО на мобильной IN платформе Siemens @vantage (Java, Unix). \n")));
 
-        Organization.add(new Organization("Alcatel", "http://www.alcatel.ru/",
+        organizations.add(new Organization("Alcatel", "http://www.alcatel.ru/",
                 new Organization.Position(1997, Month.SEPTEMBER, 2005, Month.JANUARY,
                         "Инженер по аппаратному и программному тестированию",
                         "Тестирование, отладка, внедрение ПО цифровой телефонной станции Alcatel 1000 S12" +
                                 " (CHILL, ASM). \n")));
 
-        section.put(SectionType.QUALIFICATIONS, new OrganizationSection(Organization));
+        section.put(SectionType.EXPERIENCE, new OrganizationSection(organizations));
 
 
         List<Organization> education = new ArrayList<>();
