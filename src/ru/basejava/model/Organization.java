@@ -51,13 +51,13 @@ public class Organization implements Serializable {
 
         Organization that = (Organization) o;
 
-        if (homePage != null ? !homePage.equals(that.homePage) : that.homePage != null) return false;
+        if (!homePage.equals(that.homePage)) return false;
         return positions.equals(that.positions);
     }
 
     @Override
     public int hashCode() {
-        int result = homePage != null ? homePage.hashCode() : 0;
+        int result = homePage.hashCode();
         result = 31 * result + positions.hashCode();
         return result;
     }
