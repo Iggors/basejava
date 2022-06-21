@@ -142,11 +142,11 @@ public abstract class AbstractStorageTest {
     void getAllSorted() {
         System.out.println(this);
         List<Resume> rList = storage.getAllSorted();
-//        assertEquals(3, rList.size());
+        assertEquals(3, rList.size());
 
         List<Resume> rList_1 = Arrays.asList(R1, R2, R3);
         Collections.sort(rList_1);
-//        assertEquals(rList, rList_1);
+        assertEquals(rList, rList_1);
     }
 
 //    @AfterEach
