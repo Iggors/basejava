@@ -45,29 +45,25 @@ public class Organization implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Organization that = (Organization) o;
-
-        if (!homePage.equals(that.homePage)) return false;
-        return positions.equals(that.positions);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = homePage.hashCode();
-        result = 31 * result + positions.hashCode();
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "Organization{" +
                 "homePage=" + homePage +
                 ", positions=" + positions +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Organization that = (Organization) o;
+        return Objects.equals(homePage, that.homePage) &&
+                Objects.equals(positions, that.positions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(homePage, positions);
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)
@@ -120,22 +116,16 @@ public class Organization implements Serializable {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-
             Position position = (Position) o;
-
-            if (!startDate.equals(position.startDate)) return false;
-            if (!endDate.equals(position.endDate)) return false;
-            if (!title.equals(position.title)) return false;
-            return description != null ? description.equals(position.description) : position.description == null;
+            return Objects.equals(startDate, position.startDate) &&
+                    Objects.equals(endDate, position.endDate) &&
+                    Objects.equals(title, position.title) &&
+                    Objects.equals(description, position.description);
         }
 
         @Override
         public int hashCode() {
-            int result = startDate.hashCode();
-            result = 31 * result + endDate.hashCode();
-            result = 31 * result + title.hashCode();
-            result = 31 * result + (description != null ? description.hashCode() : 0);
-            return result;
+            return Objects.hash(startDate, endDate, title, description);
         }
 
         @Override

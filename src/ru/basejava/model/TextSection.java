@@ -31,7 +31,7 @@ public class TextSection extends AbstractSection {
 
         TextSection that = (TextSection) o;
 
-        return description != null ? description.equals(that.description) : that.description == null;
+        return description.equals(that.description);
     }
 
     @Override
