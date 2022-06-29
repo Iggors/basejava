@@ -1,53 +1,35 @@
 package ru.basejava;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
-import static java.lang.Thread.sleep;
-
 public class MainDeadLock {
-    private final Lock lock1 = new ReentrantLock(true);
-    private final Lock lock2 = new ReentrantLock(true);
+
+    public static final Object RESOURCE_1 = new Object();
+    public static final Object RESOURCE_2 = new Object();
+
+    private static void monitorLock(Object resource1, Object resource2) {
+        System.out.println("Попытка захватить монитор объекта " + resource1 + " потоком " + Thread.currentThread().getName());
+        // Блокируем resource1
+        synchronized (resource1) {
+            System.out.println("Захвачен монитор объекта " + resource1 + " потоком " + Thread.currentThread().getName());
+            System.out.println("Попытка захватить монитор объекта " + resource1 + " потоком " + Thread.currentThread().getName());
+
+            //Ставим поток на паузу (симулируем некую деятельность)
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            // Блокируем resource2
+            synchronized (resource2) {
+                System.out.println("Захвачен монитор объекта " + resource2 + " потоком " + Thread.currentThread().getName());
+            }
+        }
+    }
 
     public static void main(String[] args) {
-        MainDeadLock deadlock = new MainDeadLock();
-        new Thread(() -> deadlock.operation1(), "Поток №1").start();
-        new Thread(() -> deadlock.operation2(), "Поток №2").start();
-    }
-
-    public void operation1() {
-        lock1.lock();
-        System.out.println("Блокировка №1 выполнена. Ожидается блокировка №2.");
-        try {
-            sleep(50);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        lock2.lock();
-        System.out.println("Блокировка №2 выполнена");
-
-        System.out.println("Выполнение операции №1.");
-
-        lock2.unlock();
-        lock1.unlock();
-    }
-
-    public void operation2() {
-        lock2.lock();
-        System.out.println("Блокировка №2 выполнена. Ожидается блокировка №1.");
-        try {
-            sleep(50);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        lock1.lock();
-        System.out.println("Блокировка №1 выполнена");
-
-        System.out.println("Выполнение операции №2.");
-
-        lock1.unlock();
-        lock2.unlock();
+        Thread t1 = new Thread(() -> monitorLock(RESOURCE_1, RESOURCE_2));
+        Thread t2 = new Thread(() -> monitorLock(RESOURCE_2, RESOURCE_1));
+        t1.start();
+        t2.start();
     }
 }
