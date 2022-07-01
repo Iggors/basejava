@@ -12,8 +12,7 @@ public class BaseJavaHW12 {
         return Arrays.stream(arrayInput)
                 .distinct()                     //возвращаем поток уникальных элементов массива
                 .sorted()                       //возвращаем отсортированный поток
-                .reduce((l, r) -> l * 10 + r)   //составляем число из полученных уникальных цифр исходного массива
-                .orElseThrow();                 //возвращаем результат, если он существует, в противном случае кидаем NoSuchElementException
+                .reduce(0, (l, r) -> l * 10 + r);  //составляем число из полученных уникальных цифр исходного массива
     }
 
     private static List<Integer> oddOrEven(List<Integer> integers) {
