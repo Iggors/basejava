@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BaseJavaHW12 {
-
     private static int minValue(int[] arrayInput) {
         return Arrays.stream(arrayInput)
                 .distinct()                     //возвращаем поток уникальных элементов массива
