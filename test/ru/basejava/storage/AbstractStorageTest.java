@@ -3,6 +3,7 @@ package ru.basejava.storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ru.basejava.Config;
 import ru.basejava.ResumeTestData;
 import ru.basejava.exception.ExistStorageException;
 import ru.basejava.exception.NotExistStorageException;
@@ -17,7 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("../basejava/storage/");
+    protected static final File STORAGE_DIR = Config.get().getStorageDir();
+            //new File("../basejava/storage/");
 
     protected Storage storage;
 
