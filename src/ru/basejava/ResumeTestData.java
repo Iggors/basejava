@@ -2,9 +2,11 @@ package ru.basejava;
 
 import ru.basejava.model.Resume;
 
+import java.util.UUID;
+
 public class ResumeTestData {
     public static void main(String[] args) {
-        String testUuid = "uuid";
+        String testUuid = UUID.randomUUID().toString();
         String testfullName = "Григорий Кислин";
         Resume testResume = resumeCreator(testUuid, testfullName);
 
