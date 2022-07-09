@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SqlStorage implements Storage {
-    SqlHelper sqlHelper;
+    private final SqlHelper sqlHelper;
 
     public SqlStorage(String dbUrl, String dbUser, String dbPassword) {
         sqlHelper = new SqlHelper(() -> DriverManager.getConnection(dbUrl, dbUser, dbPassword));
@@ -21,7 +21,13 @@ public class SqlStorage implements Storage {
 
     @Override
     public int size() {
-        return getAllSorted().size();
+        return sqlHelper.execute("SELECT COUNT(*) FROM resume", ps -> {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return null;
+        });
     }
 
     @Override
@@ -34,7 +40,7 @@ public class SqlStorage implements Storage {
         return sqlHelper.execute("SELECT * FROM resume ORDER BY full_name, uuid", ps -> {
             ResultSet rs = ps.executeQuery();
             List<Resume> rList = new ArrayList<>();
-            while(rs.next()){
+            while (rs.next()) {
                 rList.add(new Resume(rs.getString("uuid"), rs.getString("full_name")));
             }
             return rList;
