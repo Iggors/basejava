@@ -25,7 +25,7 @@ public class SqlHelper {
         } catch (SQLException e) {
             if (e instanceof PSQLException) {
                 if (e.getSQLState().equals("23505")) {
-                    throw new ExistStorageException("postgresql - error 23505 duplicate key value violates unique constraint 'foo_column_key' (not primary key)");
+                    throw new ExistStorageException(null);
                 }
             }
             throw new StorageException(e);
