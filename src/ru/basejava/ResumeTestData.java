@@ -1,33 +1,37 @@
 package ru.basejava;
 
+import ru.basejava.model.ContactType;
 import ru.basejava.model.Resume;
 
-import java.util.UUID;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class ResumeTestData {
-    public static void main(String[] args) {
-        String testUuid = UUID.randomUUID().toString();
-        String testfullName = "Григорий Кислин";
-        Resume testResume = resumeCreator(testUuid, testfullName);
-
-        System.out.println(testResume.getFullName());
-        System.out.println(testResume.getContacts());
-        System.out.println(testResume.getSection());
-    }
+//    public static void main(String[] args) {
+//        String testUuid = UUID.randomUUID().toString();
+//        String testfullName = "Григорий Кислин";
+//        Resume testResume = resumeCreator(testUuid, testfullName);
+//
+//        System.out.println(testResume.getFullName());
+//        System.out.println(testResume.getContacts());
+//        System.out.println(testResume.getSection());
+//    }
 
     public static Resume resumeCreator(String testUuid, String testfullName) {
         Resume resume = new Resume(testUuid, testfullName);
 
-//        Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-//
-//        contacts.put(ContactType.PHONE, "+7(921) 855-0482 \n");
-//        contacts.put(ContactType.SKYPE, "grigory.kislin \n");
-//        contacts.put(ContactType.EMAIL, "gkislin@yandex.ru \n");
-//        contacts.put(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin \n");
-//        contacts.put(ContactType.GITHUB, "https://github.com/gkislin \n");
-//        contacts.put(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473 \n");
-//        contacts.put(ContactType.HOMEPAGE, "http://gkislin.ru/ \n");
-//
+        Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+
+        contacts.put(ContactType.PHONE, "+7(921) 855-0482 \n");
+        contacts.put(ContactType.SKYPE, "grigory.kislin \n");
+        contacts.put(ContactType.EMAIL, "gkislin@yandex.ru \n");
+        contacts.put(ContactType.LINKEDIN, "https://www.linkedin.com/in/gkislin \n");
+        contacts.put(ContactType.GITHUB, "https://github.com/gkislin \n");
+        contacts.put(ContactType.STACKOVERFLOW, "https://stackoverflow.com/users/548473 \n");
+        contacts.put(ContactType.HOMEPAGE, "http://gkislin.ru/ \n");
+
+        resume.setContacts(contacts);
+
 //        Map<SectionType, AbstractSection> section = new EnumMap<>(SectionType.class);
 //        section.put(SectionType.OBJECTIVE, new TextSection("Ведущий стажировок и корпоративного" +
 //                " обучения по Java Web и Enterprise технологиям \n"));
@@ -197,7 +201,7 @@ public class ResumeTestData {
 //
 //        section.put(SectionType.EDUCATION, new OrganizationSection(education));
 //
-//        resume.setContacts(contacts);
+
 //        resume.setSection(section);
 
         return resume;

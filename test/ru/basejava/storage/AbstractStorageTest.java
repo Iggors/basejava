@@ -26,7 +26,7 @@ public abstract class AbstractStorageTest {
     protected static final String UUID_1 = UUID.randomUUID().toString();
     protected static final String UUID_2 = UUID.randomUUID().toString();
     protected static final String UUID_3 = UUID.randomUUID().toString();
-    protected static final String NEW_UUID = "new_uuid";
+    protected static final String NEW_UUID = UUID.randomUUID().toString();
     protected static final String DUMMY_UUID = "dummy";
 
     protected static final String FULL_NAME_1 = "name_1";
@@ -94,10 +94,9 @@ public abstract class AbstractStorageTest {
     @DisplayName("Check the ability to update existing resume in the storage.")
     void update() {
         System.out.println(this);
-        Resume new_R1 = new Resume(UUID_1, NEW_FULL_NAME);
+        Resume new_R1 = ResumeTestData.resumeCreator(UUID_1, NEW_FULL_NAME);
         storage.update(new_R1);
         assertEquals(new_R1, storage.get(UUID_1));
-        //assertSame(new_R1, storage.get(UUID_1));
     }
 
     @Test
