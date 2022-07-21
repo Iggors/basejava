@@ -4,6 +4,7 @@ import ru.basejava.Config;
 import ru.basejava.model.Resume;
 import ru.basejava.storage.Storage;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,10 +14,11 @@ import java.io.PrintWriter;
 import java.util.List;
 
 public class ResumeServlet extends HttpServlet {
-    private Storage storage;
+    private Storage storage; //= Config.get().getStorage();
 
     @Override
-    public void init() {
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
         storage = Config.get().getStorage();
     }
 
