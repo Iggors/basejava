@@ -30,15 +30,14 @@ public class ResumeServlet extends HttpServlet {
         writer.println("<head><title>Список резюме</title></head>");
         writer.println("<style type=\"text/css\">\n" +
                 " TABLE {\n" +
-                "   width: 300px; /* Ширина таблицы */\n" +
-                "   border-collapse: collapse; /* Убираем двойные линии между ячейками */\n" +
+                "   border-collapse: collapse;\n" +
                 " }\n" +
                 "TD, TH {\n" +
-                "   padding: 3px; /* Поля вокруг содержимого таблицы */\n" +
-                "   border: 1px solid black; /* Параметры рамки */\n" +
+                "   padding: 3px;\n" +
+                "   border: 1px solid black;\n" +
                 "}\n" +
                 "TH {\n" +
-                "   background: #b0e0e6; /* Цвет фона */\n" +
+                "   background: #b0e0e6;\n" +
                 "}");
         writer.println("</style>");
         writer.println("<table>");
