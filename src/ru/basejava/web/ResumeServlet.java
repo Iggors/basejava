@@ -13,7 +13,12 @@ import java.io.PrintWriter;
 import java.util.List;
 
 public class ResumeServlet extends HttpServlet {
-    private Storage storage = Config.get().getStorage();
+    private Storage storage;
+
+    @Override
+    public void init() {
+        storage = Config.get().getStorage();
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,10 +27,19 @@ public class ResumeServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter writer = response.getWriter();
         writer.println("<html>");
-        writer.println("<style>");
-        writer.println("table, th, td {");
-        writer.println("border: 1px solid black; border-style: dotted");
-        writer.println("}");
+        writer.println("<head><title>Список резюме</title></head>");
+        writer.println("<style type=\"text/css\">\n" +
+                " TABLE {\n" +
+                "   width: 300px; /* Ширина таблицы */\n" +
+                "   border-collapse: collapse; /* Убираем двойные линии между ячейками */\n" +
+                " }\n" +
+                "TD, TH {\n" +
+                "   padding: 3px; /* Поля вокруг содержимого таблицы */\n" +
+                "   border: 1px solid black; /* Параметры рамки */\n" +
+                "}\n" +
+                "TH {\n" +
+                "   background: #b0e0e6; /* Цвет фона */\n" +
+                "}");
         writer.println("</style>");
         writer.println("<table>");
         writer.println("<tr>");

@@ -39,25 +39,6 @@ public class SqlStorage implements Storage {
 
     @Override
     public List<Resume> getAllSorted() {
-//        return sqlHelper.transactionalExecute(conn -> {
-//            try (PreparedStatement ps = conn.prepareStatement("" +
-//                    "SELECT * FROM resume r " +
-//                    "LEFT JOIN contact c ON r.uuid = c.resume_uuid ORDER BY full_name, uuid")) {
-//                ResultSet rs = ps.executeQuery();
-//                Map<String, Resume> map = new LinkedHashMap<>();
-//                while (rs.next()) {
-//                    String uuid = rs.getString("uuid");
-//                    Resume resume = map.get(uuid);
-//                    if (resume == null) {
-//                        resume = new Resume(uuid, rs.getString("full_name"));
-//                        map.put(uuid, resume);
-//                    }
-//                    addContact(rs, resume);
-//                }
-//                return new ArrayList<>(map.values());
-//            }
-//        });
-
         return sqlHelper.transactionalExecute(conn -> {
             Map<String, Resume> resumes = new LinkedHashMap<>();
 
@@ -106,72 +87,86 @@ public class SqlStorage implements Storage {
 
     @Override
     public Resume get(String uuid) {
-//        return sqlHelper.execute("" +
-//                        "SELECT * FROM resume r " +
-//                        "LEFT JOIN contact c ON r.uuid = c.resume_uuid WHERE r.uuid =?",
+        return sqlHelper.transactionalExecute(conn -> {
+            Resume r;
+            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM resume WHERE uuid =?")) {
+                ps.setString(1, uuid);
+                ResultSet rs = ps.executeQuery();
+                if (!rs.next()) {
+                    throw new NotExistStorageException(uuid);
+                }
+                r = new Resume(uuid, rs.getString("full_name"));
+            }
+
+            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM contact WHERE resume_uuid =?")) {
+                ps.setString(1, uuid);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    addContact(rs, r);
+                }
+            }
+
+            try (PreparedStatement ps = conn.prepareStatement("SELECT * FROM section WHERE resume_uuid =?")) {
+                ps.setString(1, uuid);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    addSection(rs, r);
+                }
+            }
+
+            return r;
+        });
+
+//        Resume resume = sqlHelper.execute("SELECT * FROM resume r " +
+//                        "LEFT JOIN contact c on r.uuid = c.resume_uuid " +
+//                        "WHERE r.uuid =?",
 //                ps -> {
 //                    ps.setString(1, uuid);
 //                    ResultSet rs = ps.executeQuery();
 //                    if (!rs.next()) {
-//                        throw new NotExistStorageException(uuid);
+//                        throw new NotExistStorageException("Resume " + uuid + " is not exist");
 //                    }
 //                    Resume r = new Resume(uuid, rs.getString("full_name"));
 //                    do {
 //                        addContact(rs, r);
-//                    } while (rs.next());
+//                    }
+//                    while (rs.next());
 //                    return r;
 //                });
-
-        Resume resume = sqlHelper.execute("SELECT * FROM resume r " +
-                        "LEFT JOIN contact c on r.uuid = c.resume_uuid " +
-                        "WHERE r.uuid =?",
-                ps -> {
-                    ps.setString(1, uuid);
-                    ResultSet rs = ps.executeQuery();
-                    if (!rs.next()) {
-                        throw new NotExistStorageException("Resume " + uuid + " is not exist");
-                    }
-                    Resume r = new Resume(uuid, rs.getString("full_name"));
-                    do {
-                        addContact(rs, r);
-                    }
-                    while (rs.next());
-                    return r;
-                });
-        sqlHelper.execute("SELECT * FROM resume r " +
-                        "LEFT JOIN section s on r.uuid = s.resume_uuid " +
-                        "WHERE r.uuid =?",
-                ps -> {
-                    ps.setString(1, uuid);
-                    ResultSet rs = ps.executeQuery();
-                    if (!rs.next()) {
-                        throw new NotExistStorageException("Resume " + uuid + " is not exist");
-                    }
-
-                    do {
-                        addSection(rs, resume);
-                    }
-                    while (rs.next());
-                    return resume;
-                });
-        return resume;
+//        sqlHelper.execute("SELECT * FROM resume r " +
+//                        "LEFT JOIN section s on r.uuid = s.resume_uuid " +
+//                        "WHERE r.uuid =?",
+//                ps -> {
+//                    ps.setString(1, uuid);
+//                    ResultSet rs = ps.executeQuery();
+//                    if (!rs.next()) {
+//                        throw new NotExistStorageException("Resume " + uuid + " is not exist");
+//                    }
+//
+//                    do {
+//                        addSection(rs, resume);
+//                    }
+//                    while (rs.next());
+//                    return resume;
+//                });
+//        return resume;
     }
 
     @Override
     public void update(Resume r) {
         sqlHelper.transactionalExecute(conn -> {
-                    PreparedStatement ps = conn.prepareStatement("UPDATE resume SET full_name = ? WHERE uuid = ?");
-                        ps.setString(1, r.getFullName());
-                        ps.setString(2, r.getUuid());
-                        if (ps.executeUpdate() != 1) {
-                            throw new NotExistStorageException("Resume " + r.getUuid() + " not exist");
-                        }
-                    deleteContacts(r, conn);
-                    insertContacts(r, conn);
-                    deleteSections(r, conn);
-                    insertSections(r, conn);
-                    return null;
-                });
+            PreparedStatement ps = conn.prepareStatement("UPDATE resume SET full_name = ? WHERE uuid = ?");
+            ps.setString(1, r.getFullName());
+            ps.setString(2, r.getUuid());
+            if (ps.executeUpdate() != 1) {
+                throw new NotExistStorageException("Resume " + r.getUuid() + " not exist");
+            }
+            deleteContacts(r, conn);
+            insertContacts(r, conn);
+            deleteSections(r, conn);
+            insertSections(r, conn);
+            return null;
+        });
     }
 
     @Override
