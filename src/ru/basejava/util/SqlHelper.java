@@ -3,7 +3,7 @@ package ru.basejava.util;
 import ru.basejava.exception.StorageException;
 import ru.basejava.sql.ConnectionFactory;
 import ru.basejava.sql.ExceptionUtil;
-import ru.basejava.sql.Executor;
+import ru.basejava.sql.SqlExecutor;
 import ru.basejava.sql.SqlTransaction;
 
 import java.sql.Connection;
@@ -18,18 +18,16 @@ public class SqlHelper {
         this.connectionFactory = connectionFactory;
     }
 
-    public <T> T execute(String query, Executor<T> executor) {
+    public void execute(String sql) {
+        execute(sql, PreparedStatement::execute);
+    }
+
+    public <T> T execute(String query, SqlExecutor<T> executor) {
         try (Connection conn = connectionFactory.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
             return executor.execute(ps);
         } catch (SQLException e) {
             throw ExceptionUtil.convertException(e);
-//            if (e instanceof PSQLException) {
-//                if (e.getSQLState().equals("23505")) {
-//                    throw new ExistStorageException(null);
-//                }
-//            }
-//            throw new StorageException(e);
         }
     }
 

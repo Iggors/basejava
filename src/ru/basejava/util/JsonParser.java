@@ -8,9 +8,8 @@ import java.io.Reader;
 import java.io.Writer;
 import java.time.LocalDateTime;
 
-public class JsonParser {
-
-    private static Gson GSON = new GsonBuilder()
+public class JsonParser  {
+    private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, new GsonLocalDateTimeAdapter())
             .registerTypeAdapter(AbstractSection.class, new JsonSectionAdapter())
             .create();
@@ -23,4 +22,11 @@ public class JsonParser {
         GSON.toJson(object, writer);
     }
 
+    public static <T> T readString(String value, Class<T> clazz) {
+        return GSON.fromJson(value, clazz);
+    }
+
+    public static <T> String write(T object, Class<T> clazz) {
+        return GSON.toJson(object, clazz);
+    }
 }
