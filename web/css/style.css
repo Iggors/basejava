@@ -49,9 +49,16 @@ h1 {
     font-size: 18px;
 }
 
-h2, h3 {
+h2 {
     margin: 15px 0 5px;
     font-family: verdana;
+    font-size: 18px;
+}
+
+h3 {
+    margin: 15px 0 5px;
+    font-family: verdana;
+    font-size: 14px;
 }
 
 li {
@@ -87,4 +94,11 @@ a[href*="github."] {
     padding-left: 20px !important;
     background: url(../img/gh.png) no-repeat center left;
     font-family: verdana;
+}
+
+.class = "text-section" {
+    margin: 15px 0 5px;
+    font-family: verdana;
+    font-size: 14px;
+    font-weight: normal;
 }
