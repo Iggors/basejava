@@ -113,7 +113,6 @@ public class SqlStorage implements Storage {
                     addSection(rs, r);
                 }
             }
-
             return r;
         });
 
