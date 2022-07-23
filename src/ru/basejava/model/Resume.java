@@ -74,6 +74,14 @@ public class Resume implements Comparable<Resume>, Serializable {
         return sections.get(type);
     }
 
+    public void setSection(SectionType type, AbstractSection section) {
+        sections.put(type, section);
+    }
+
+    public void setContacts(ContactType type, String value) {
+        contacts.put(type, value);
+    }
+
     public void addContact(ContactType type, String value) {
         contacts.put(type, value);
     }
@@ -108,4 +116,6 @@ public class Resume implements Comparable<Resume>, Serializable {
     public int hashCode() {
         return Objects.hash(uuid, fullName, contacts, sections);
     }
+
+
 }
