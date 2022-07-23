@@ -1,6 +1,7 @@
 <%@ page import="ru.basejava.model.TextSection" %>
 <%@ page import="ru.basejava.model.ListSection" %>
 <%@ page import="ru.basejava.model.OrganizationSection" %>
+<%@ page import="ru.basejava.util.HtmlUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -84,7 +85,7 @@
                         <c:forEach var="position" items="${org.positions}">
                             <jsp:useBean id="position" type="ru.basejava.model.Organization.Position"/>
                             <tr>
-<%--                                <td width="15%" style="vertical-align: top"><%=HtmlUtil.formatDates(position)%>--%>
+                                <td width="15%" style="vertical-align: top"><%=HtmlUtil.formatDates(position)%>
     <td width="15%" style="vertical-align: top"><%=(position)%>
                                 </td>
                                 <td><b>${position.title}</b><br>${position.description}</td>
