@@ -41,7 +41,7 @@
                     </c:when>
 
                     <c:when test="${type=='PERSONAL'}">
-                        <span <%=((TextSection) section).getDescription()%></span>
+                        <span><%=((TextSection) section).getDescription()%></span>
                     </c:when>
 
                     <c:when test="${type=='QUALIFICATIONS' || type=='ACHIEVEMENT'}">

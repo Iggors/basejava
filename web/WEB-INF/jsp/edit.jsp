@@ -16,24 +16,23 @@
 <jsp:include page="fragments/header.jsp"/>
 <section>
     <form method="post" action="resume" enctype="application/x-www-form-urlencoded">
-        <div class="full-name">
-            <input class="form-input-text" type="hidden" name="uuid" value="${resume.uuid}">
-            <dl>
-                <dt>Имя:</dt>
-                <dd><input class="form-input-text" type="text" name="fullName" size=50 value="${resume.fullName}"></dd>
-            </dl>
-        </div>
 
-        <div class="contact_section">
-            <h3>Контакты:</h3>
-            <hr>
-            <c:forEach var="type" items="<%=ContactType.values()%>">
-                <dl>
-                    <dt>${type.title}</dt>
-                    <dd><input class="form-input-text" type="text" name="${type.name()}" size=30 value="${resume.getContact(type)}"></dd>
-                </dl>
-            </c:forEach>
-        </div>
+        <input class="form-input-text" type="hidden" name="uuid" value="${resume.uuid}">
+        <dl>
+            <h2><a>ФИО:</a></h2>
+            <input class="form-input-text" type="text" name="fullName" size=50 value="${resume.fullName}">
+        </dl>
+
+        <h2><a>Контакты</a></h2>
+        <hr>
+        <c:forEach var="type" items="<%=ContactType.values()%>">
+            <dl>
+                <dt>${type.title}</dt>
+                <dd><input class="form-input-text" type="text" name="${type.name()}" size=30
+                           value="${resume.getContact(type)}"></dd>
+            </dl>
+        </c:forEach>
+
         <div class="section-name">
             <c:forEach var="type" items="<%=SectionType.values()%>">
                 <c:set var="section" value="${resume.getSection(type)}"/>
@@ -59,12 +58,13 @@
                                    varStatus="counter">
                             <dl>
                                 <dt>Название организации:</dt>
-                                <dd><input class="form-input-text" type="text" name='${type}' size=100 value="${org.homePage.name}"></dd>
+                                <dd><input class="form-input-text" type="text" name='${type}' size=100
+                                           value="${org.homePage.name}"></dd>
                             </dl>
                             <dl>
                                 <dt>Web-cайт организации:</dt>
-                                <dd><input class="form-input-text" type="text" name='${type}url' size=100 value="${org.homePage.url}"></dd>
-                                </dd>
+                                <dd><input class="form-input-text" type="text" name='${type}url' size=100
+                                           value="${org.homePage.url}"></dd>
                             </dl>
                             <br>
                             <div style="margin-left: 30px">
@@ -73,7 +73,8 @@
                                     <dl>
                                         <dt>Начальная дата:</dt>
                                         <dd>
-                                            <input class="form-input-text" type="text" name="${type}${counter.index}startDate" size=10
+                                            <input class="form-input-text" type="text"
+                                                   name="${type}${counter.index}startDate" size=10
                                                    value="<%=DateUtil.format(pos.getStartDate())%>"
                                                    placeholder="MM/yyyy">
                                         </dd>
@@ -81,17 +82,20 @@
                                     <dl>
                                         <dt>Конечная дата:</dt>
                                         <dd>
-                                            <input class="form-input-text" type="text" name="${type}${counter.index}endDate" size=10
+                                            <input class="form-input-text" type="text"
+                                                   name="${type}${counter.index}endDate" size=10
                                                    value="<%=DateUtil.format(pos.getEndDate())%>" placeholder="MM/yyyy">
                                     </dl>
                                     <dl>
                                         <dt>Должность:</dt>
-                                        <dd><input class="form-input-text" type="text" name='${type}${counter.index}title' size=75
+                                        <dd><input class="form-input-text" type="text"
+                                                   name='${type}${counter.index}title' size=75
                                                    value="${pos.title}">
                                     </dl>
                                     <dl>
                                         <dt>Описание:</dt>
-                                        <dd><textarea class="form-input-text" name="${type}${counter.index}description" rows=5
+                                        <dd><textarea class="form-input-text" name="${type}${counter.index}description"
+                                                      rows=5
                                                       cols=75>${pos.description}</textarea></dd>
                                     </dl>
                                 </c:forEach>

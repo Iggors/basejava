@@ -5,8 +5,6 @@ section {
 }
 
 hr {
-    width: 900px;
-    text-align: left;
 }
 
 header {
@@ -28,7 +26,7 @@ footer {
 
 dl {
     background: none repeat scroll 0 0 #FAFAFA;
-    margin: 8px 0;
+    /*margin: 8px 0;*/
     padding: 0;
 }
 
@@ -39,7 +37,7 @@ dt {
 
 dd {
     display: inline-block;
-    margin-left: 8px;
+    /*margin-left: 8px;*/
     vertical-align: top;
 }
 
@@ -87,20 +85,26 @@ a[href*="github."] {
     background: url(../img/gh.png) no-repeat center left;
 }
 
+textarea {
+
+}
+
 .contact-section {
     margin: 15px 0 5px;
     font-size: 14px;
     font-weight: normal;
 }
+
 .section-name {
     margin: 15px 0 5px;
     font-size: 14px;
     font-weight: normal;
 }
 
-.form-input-text
-{
+.form-input-text {
     font-family: verdana, sans-serif !important;
     font-size: 12px;
     align: 'left';
+    padding-left: 0;
+    padding-right: 0;
 }
