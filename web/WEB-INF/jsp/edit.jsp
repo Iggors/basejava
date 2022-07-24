@@ -17,10 +17,10 @@
 <section>
     <form method="post" action="resume" enctype="application/x-www-form-urlencoded">
         <div class="full-name">
-            <input type="hidden" name="uuid" value="${resume.uuid}">
+            <input class="form-input-text" type="hidden" name="uuid" value="${resume.uuid}">
             <dl>
                 <dt>Имя:</dt>
-                <dd><input type="text" name="fullName" size=50 value="${resume.fullName}"></dd>
+                <dd><input class="form-input-text" type="text" name="fullName" size=50 value="${resume.fullName}"></dd>
             </dl>
         </div>
 
@@ -30,7 +30,7 @@
             <c:forEach var="type" items="<%=ContactType.values()%>">
                 <dl>
                     <dt>${type.title}</dt>
-                    <dd><input type="text" name="${type.name()}" size=30 value="${resume.getContact(type)}"></dd>
+                    <dd><input class="form-input-text" type="text" name="${type.name()}" size=30 value="${resume.getContact(type)}"></dd>
                 </dl>
             </c:forEach>
         </div>
@@ -42,15 +42,15 @@
                 <hr>
                 <c:choose>
                     <c:when test="${type=='OBJECTIVE'}">
-                        <input type='text' name='${type}' size=75 value='<%=section%>'>
+                        <textarea class="form-input-text" name='${type}' cols=75 rows=5><%=section%></textarea>
                     </c:when>
 
                     <c:when test="${type=='PERSONAL'}">
-                        <textarea name='${type}' cols=75 rows=5><%=section%></textarea>
+                        <textarea class="form-input-text" name='${type}' cols=75 rows=5><%=section%></textarea>
                     </c:when>
 
                     <c:when test="${type=='QUALIFICATIONS' || type=='ACHIEVEMENT'}">
-                        <textarea name='${type}' cols=75
+                        <textarea class="form-input-text" name='${type}' cols=75
                                   rows=5><%=String.join("\n", ((ListSection) section).getItems())%></textarea>
                     </c:when>
 
@@ -59,11 +59,11 @@
                                    varStatus="counter">
                             <dl>
                                 <dt>Название организации:</dt>
-                                <dd><input type="text" name='${type}' size=100 value="${org.homePage.name}"></dd>
+                                <dd><input class="form-input-text" type="text" name='${type}' size=100 value="${org.homePage.name}"></dd>
                             </dl>
                             <dl>
                                 <dt>Web-cайт организации:</dt>
-                                <dd><input type="text" name='${type}url' size=100 value="${org.homePage.url}"></dd>
+                                <dd><input class="form-input-text" type="text" name='${type}url' size=100 value="${org.homePage.url}"></dd>
                                 </dd>
                             </dl>
                             <br>
@@ -73,7 +73,7 @@
                                     <dl>
                                         <dt>Начальная дата:</dt>
                                         <dd>
-                                            <input type="text" name="${type}${counter.index}startDate" size=10
+                                            <input class="form-input-text" type="text" name="${type}${counter.index}startDate" size=10
                                                    value="<%=DateUtil.format(pos.getStartDate())%>"
                                                    placeholder="MM/yyyy">
                                         </dd>
@@ -81,17 +81,17 @@
                                     <dl>
                                         <dt>Конечная дата:</dt>
                                         <dd>
-                                            <input type="text" name="${type}${counter.index}endDate" size=10
+                                            <input class="form-input-text" type="text" name="${type}${counter.index}endDate" size=10
                                                    value="<%=DateUtil.format(pos.getEndDate())%>" placeholder="MM/yyyy">
                                     </dl>
                                     <dl>
                                         <dt>Должность:</dt>
-                                        <dd><input type="text" name='${type}${counter.index}title' size=75
+                                        <dd><input class="form-input-text" type="text" name='${type}${counter.index}title' size=75
                                                    value="${pos.title}">
                                     </dl>
                                     <dl>
                                         <dt>Описание:</dt>
-                                        <dd><textarea name="${type}${counter.index}description" rows=5
+                                        <dd><textarea class="form-input-text" name="${type}${counter.index}description" rows=5
                                                       cols=75>${pos.description}</textarea></dd>
                                     </dl>
                                 </c:forEach>
