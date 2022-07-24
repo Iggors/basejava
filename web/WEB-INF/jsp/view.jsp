@@ -33,15 +33,15 @@
                 <jsp:useBean id="section" type="ru.basejava.model.AbstractSection"/>
                 <div class="section-name">
                     <h2><a name="type.name">${type.title}</a></h2>
+                    <hr>
                 </div>
                 <c:choose>
-
                     <c:when test="${type=='OBJECTIVE'}">
-                        <span class="text-section"><%=((TextSection) section).getDescription()%></span>
+                        <span><%=((TextSection) section).getDescription()%></span>
                     </c:when>
 
                     <c:when test="${type=='PERSONAL'}">
-                        <span class="text-section"><%=((TextSection) section).getDescription()%></span>
+                        <span <%=((TextSection) section).getDescription()%></span>
                     </c:when>
 
                     <c:when test="${type=='QUALIFICATIONS' || type=='ACHIEVEMENT'}">
