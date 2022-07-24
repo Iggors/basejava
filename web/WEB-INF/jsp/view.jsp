@@ -15,7 +15,9 @@
 <jsp:include page="fragments/header.jsp"/>
 <section>
     <div class="main-section">
-        <h2>${resume.fullName}&nbsp;</h2>
+        <h2>${resume.fullName}&nbsp;
+            <a href="resume?uuid=${resume.uuid}&action=edit"><img src="img/pencil.png"></a>
+        </h2>
         <div class="contact-section">
             <c:forEach var="contactEntry" items="${resume.contacts}">
                 <jsp:useBean id="contactEntry"
@@ -72,7 +74,8 @@
                                 <jsp:useBean id="position" type="ru.basejava.model.Organization.Position"/>
                                 <table>
                                     <tr>
-                                        <td width="15%" style="vertical-align: top"><%=HtmlUtil.formatDates(position)%></td>
+                                        <td width="15%" style="vertical-align: top"><%=HtmlUtil.formatDates(position)%>
+                                        </td>
                                         <td><b>${position.title}</b><br>${position.description}</td>
                                     </tr>
                                 </table>
