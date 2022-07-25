@@ -3,6 +3,7 @@ package ru.basejava.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Resume implements Comparable<Resume>, Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private String uuid;
@@ -23,6 +25,17 @@ public class Resume implements Comparable<Resume>, Serializable {
 
     private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
     private Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
+
+    public static final Resume NEWR = new Resume();
+
+    static {
+        NEWR.addSection(SectionType.OBJECTIVE, TextSection.NEW);
+        NEWR.addSection(SectionType.PERSONAL, TextSection.NEW);
+        NEWR.addSection(SectionType.ACHIEVEMENT, ListSection.NEW);
+        NEWR.addSection(SectionType.QUALIFICATIONS, ListSection.NEW);
+        NEWR.addSection(SectionType.EXPERIENCE, new OrganizationSection(Organization.NEW));
+        NEWR.addSection(SectionType.EDUCATION, new OrganizationSection(Organization.NEW));
+    }
 
     public Resume() {
     }
