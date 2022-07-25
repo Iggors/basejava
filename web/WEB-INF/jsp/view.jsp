@@ -87,7 +87,7 @@
             </c:forEach>
         </div>
         <br/>
-        <button onclick="window.history.back()">ОК</button>
+        <button class="cancel-button" onclick="window.history.back()">ОК</button>
     </div>
 </section>
 <jsp:include page="fragments/footer.jsp"/>

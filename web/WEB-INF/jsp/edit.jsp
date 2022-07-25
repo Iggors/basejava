@@ -18,9 +18,11 @@
     <form method="post" action="resume" enctype="application/x-www-form-urlencoded">
 
         <input class="form-input-text" type="hidden" name="uuid" value="${resume.uuid}">
+        <h2><a>Персональная информация</a></h2>
+        <hr>
         <dl>
-            <h2><a>ФИО:</a></h2>
-            <input class="form-input-text" type="text" name="fullName" size=50 value="${resume.fullName}">
+            <dt>ФИО:</dt>
+            <dd><input class="form-input-text" type="text" name="fullName" size=30 value="${resume.fullName}"></dd>
         </dl>
 
         <h2><a>Контакты</a></h2>
@@ -57,7 +59,7 @@
                         <c:forEach var="org" items="<%=((OrganizationSection) section).getOrganizations()%>"
                                    varStatus="counter">
                             <dl>
-                                <dt>Название организации:</dt>
+                                <dt>Организация:</dt>
                                 <dd><input class="form-input-text" type="text" name='${type}' size=100
                                            value="${org.homePage.name}"></dd>
                             </dl>
@@ -71,7 +73,7 @@
                                 <c:forEach var="pos" items="${org.positions}">
                                     <jsp:useBean id="pos" type="ru.basejava.model.Organization.Position"/>
                                     <dl>
-                                        <dt>Начальная дата:</dt>
+                                        <dt>Начало работы:</dt>
                                         <dd>
                                             <input class="form-input-text" type="text"
                                                    name="${type}${counter.index}startDate" size=10
@@ -80,7 +82,7 @@
                                         </dd>
                                     </dl>
                                     <dl>
-                                        <dt>Конечная дата:</dt>
+                                        <dt>Окончание:</dt>
                                         <dd>
                                             <input class="form-input-text" type="text"
                                                    name="${type}${counter.index}endDate" size=10
@@ -93,7 +95,7 @@
                                                    value="${pos.title}">
                                     </dl>
                                     <dl>
-                                        <dt>Описание:</dt>
+                                        <dt>Обязанности и достижения на рабочем месте:</dt>
                                         <dd><textarea class="form-input-text" name="${type}${counter.index}description"
                                                       rows=5
                                                       cols=75>${pos.description}</textarea></dd>
@@ -106,8 +108,8 @@
             </c:forEach>
         </div>
         <hr>
-        <button type="submit">Сохранить</button>
-        <button onclick="window.history.back()">Отменить</button>
+        <button class="submit-button" type="submit">Сохранить</button>
+        <button class="cancel-button" type="reset" onclick="window.history.back()">Отменить</button>
     </form>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
