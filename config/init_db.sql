@@ -19,7 +19,7 @@ CREATE TABLE section
         constraint section_pk
             primary key,
     type        text     not null,
-    content     text     not null,
+    value     text     not null,
     resume_uuid CHAR(36) not null
         constraint section_resume_uuid_fk
             references resume (uuid)
