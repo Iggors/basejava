@@ -44,7 +44,7 @@
                 <hr>
                 <c:choose>
                     <c:when test="${type=='OBJECTIVE'}">
-                        <textarea class="form-input-text" name='${type}' cols=75 rows=5><%=section%></textarea>
+                        <textarea required class="form-input-text" name='${type}' cols=75 rows=5><%=section%></textarea>
                     </c:when>
 
                     <c:when test="${type=='PERSONAL'}">
