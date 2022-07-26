@@ -22,7 +22,8 @@
         <hr>
         <dl>
             <dt>ФИО:</dt>
-            <dd><input class="form-input-text" type="text" name="fullName" size=30 value="${resume.fullName}"></dd>
+            <dd><input required class="form-input-text" type="text" name="fullName" pattern="[\S][A-Za-zА-Яа-яЁё\s]*"
+                       title="Имя не должно содержать цифр" size=30 value="${resume.fullName}"></dd>
         </dl>
 
         <h2><a>Контакты</a></h2>
@@ -51,7 +52,7 @@
                     </c:when>
 
                     <c:when test="${type=='QUALIFICATIONS' || type=='ACHIEVEMENT'}">
-                        <textarea class="form-input-text" name='${type}' cols=75
+                        <textarea required class="form-input-text" name='${type}' cols=75
                                   rows=5><%=String.join("\n", ((ListSection) section).getItems())%></textarea>
                     </c:when>
 
@@ -60,7 +61,7 @@
                                    varStatus="counter">
                             <dl>
                                 <dt>Организация:</dt>
-                                <dd><input class="form-input-text" type="text" name='${type}' size=100
+                                <dd><input required class="form-input-text" type="text" name='${type}' size=100
                                            value="${org.homePage.name}"></dd>
                             </dl>
                             <dl>
@@ -75,7 +76,7 @@
                                     <dl>
                                         <dt>Начало работы:</dt>
                                         <dd>
-                                            <input class="form-input-text" type="text"
+                                            <input required class="form-input-text" type="text"
                                                    name="${type}${counter.index}startDate" size=10
                                                    value="<%=DateUtil.format(pos.getStartDate())%>"
                                                    placeholder="MM/yyyy">
@@ -90,7 +91,7 @@
                                     </dl>
                                     <dl>
                                         <dt>Должность:</dt>
-                                        <dd><input class="form-input-text" type="text"
+                                        <dd><input required class="form-input-text" type="text"
                                                    name='${type}${counter.index}title' size=75
                                                    value="${pos.title}">
                                     </dl>

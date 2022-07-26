@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ResumeServlet extends HttpServlet {
@@ -43,6 +44,9 @@ public class ResumeServlet extends HttpServlet {
                 return;
             case "view":
                 r = storage.get(uuid);
+                break;
+            case "add_resume":
+                r = Resume.NEWR;
                 break;
             case "edit":
                 r = storage.get(uuid);
@@ -80,9 +84,6 @@ public class ResumeServlet extends HttpServlet {
                     r.addSection(type, section);
                 }
                 break;
-            case "add_resume":
-                r = Resume.NEWR;
-                break;
             default:
                 throw new IllegalArgumentException("Action " + action + " is illegal");
         }
@@ -95,7 +96,6 @@ public class ResumeServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
         final boolean isCreate = (uuid == null || uuid.length() == 0);
@@ -110,7 +110,7 @@ public class ResumeServlet extends HttpServlet {
 
         for (ContactType type : ContactType.values()) {
             String value = request.getParameter(type.name());
-            if (HtmlUtil.isEmpty(value)) {
+            if (HtmlUtil.isEmpty(value) && value.trim().length() == 0) {
                 r.getContacts().remove(type);
             } else {
                 r.setContacts(type, value);
@@ -130,7 +130,7 @@ public class ResumeServlet extends HttpServlet {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        r.setSection(type, new ListSection(value.split("\\n")));
+                        r.setSection(type, new ListSection(Arrays.asList(value.replaceAll("</br>", "").split("\\r\\n\\s*"))));
                         break;
                     case EDUCATION:
                     case EXPERIENCE:
@@ -158,6 +158,7 @@ public class ResumeServlet extends HttpServlet {
                 }
             }
         }
+
         if (isCreate) {
             storage.save(r);
         } else {
