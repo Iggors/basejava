@@ -44,7 +44,7 @@
                 <hr>
                 <c:choose>
                     <c:when test="${type=='OBJECTIVE'}">
-                        <textarea required class="form-input-text" name='${type}' cols=75 rows=5><%=section%></textarea>
+                        <textarea class="form-input-text textarea-sized-rows" name='${type}' cols=75 rows=5><%=section%></textarea>
                     </c:when>
 
                     <c:when test="${type=='PERSONAL'}">
@@ -52,7 +52,7 @@
                     </c:when>
 
                     <c:when test="${type=='QUALIFICATIONS' || type=='ACHIEVEMENT'}">
-                        <textarea required class="form-input-text" name='${type}' cols=75
+                        <textarea class="form-input-text" name='${type}' cols=75
                                   rows=5><%=String.join("\n", ((ListSection) section).getItems())%></textarea>
                     </c:when>
 
@@ -61,7 +61,7 @@
                                    varStatus="counter">
                             <dl>
                                 <dt>Организация:</dt>
-                                <dd><input required class="form-input-text" type="text" name='${type}' size=100
+                                <dd><input class="form-input-text" type="text" name='${type}' size=100
                                            value="${org.homePage.name}"></dd>
                             </dl>
                             <dl>
@@ -76,7 +76,7 @@
                                     <dl>
                                         <dt>Начало работы:</dt>
                                         <dd>
-                                            <input required class="form-input-text" type="text"
+                                            <input class="form-input-text" type="text"
                                                    name="${type}${counter.index}startDate" size=10
                                                    value="<%=DateUtil.format(pos.getStartDate())%>"
                                                    placeholder="MM/yyyy">
@@ -91,7 +91,7 @@
                                     </dl>
                                     <dl>
                                         <dt>Должность:</dt>
-                                        <dd><input required class="form-input-text" type="text"
+                                        <dd><input  class="form-input-text" type="text"
                                                    name='${type}${counter.index}title' size=75
                                                    value="${pos.title}">
                                     </dl>
@@ -109,8 +109,8 @@
             </c:forEach>
         </div>
         <hr>
-        <button class="submit-button" type="submit">Сохранить</button>
-        <button class="cancel-button" type="reset" onclick="window.history.back()">Отменить</button>
+        <button class="button button-OK" type="submit">Сохранить</button>
+        <button class="button button button-cancel" type="reset" onclick="window.history.back()">Отменить</button>
     </form>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
