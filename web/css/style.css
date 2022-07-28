@@ -132,11 +132,6 @@ input::placeholder {
     opacity: 0.5;
 }
 
-.textarea-sized-rows{
-    cols = 75;
-    rows = 5
-}
-
 .button {
     border: none;
     color: white;
