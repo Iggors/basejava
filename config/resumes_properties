@@ -1,4 +1,0 @@
-storage.dir=F:/Development/Java/basejava/storage/
-db.url=jdbc:postgresql://localhost:5432/resumes
-db.user=postgres
-db.password=qwerty
